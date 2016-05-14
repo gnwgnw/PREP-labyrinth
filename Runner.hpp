@@ -5,33 +5,23 @@
 #ifndef LABYRINTH_RUNNER_HPP
 #define LABYRINTH_RUNNER_HPP
 
-#include <vector>
+#include <stack>
 
 #include "RunnerBase.hpp"
-
-struct Cell{
-	bool leftDone;
-	bool rightDone;
-	bool upDone;
-	bool downDone;
-
-	Status state;
-
-	Direction prevStep;
-};
+#include "Cell.hpp"
 
 class Runner: public RunnerBase {
-	private:
-		std::vector<Cell> history;
-
-		Direction prevDirection;
-		bool isForwardDirection;
-
     public:
-    	// Constructors & Destructors
+    	// Constructors
     	Runner();
 
         Direction step();
+
+	private:
+		std::stack<Cell> history;
+
+		Direction lastChoice;
+		bool isForwardDirection;
 };
 
 

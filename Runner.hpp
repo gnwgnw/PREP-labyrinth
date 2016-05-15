@@ -6,7 +6,7 @@
 #define LABYRINTH_RUNNER_HPP
 
 #include <stack>
-#include <vector>
+#include <list>
 #include <algorithm>
 
 #include "RunnerBase.hpp"
@@ -21,7 +21,7 @@ class Runner: public RunnerBase {
 
 	private:
 		std::stack<Cell> history;
-		std::vector<std::pair<int, int>> deadlocks;
+		std::list<std::pair<int, int>> deadlocks;
 
 		Direction lastChoice;
 		bool isForwardDirection;

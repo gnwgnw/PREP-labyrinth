@@ -83,7 +83,7 @@ Direction Runner::step(){
 }
 
 bool Runner::checkForDeadlock(int x, int y) const{
-	return std::find(deadlocks.rbegin(), deadlocks.rend(), std::make_pair(x, y)) != deadlocks.rend();
+	return std::find(deadlocks.crbegin(), deadlocks.crend(), std::make_pair(x, y)) != deadlocks.crend();
 }
 
 bool Runner::checkForDeadlock(const Direction& direction){

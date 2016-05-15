@@ -15,6 +15,8 @@ Runner::Runner(){
 }
 
 Direction Runner::step(){
+	std::cout << "[ " << x << "," << y << " ]\n";
+
 	if (isForwardDirection) {
 		if (history.size()){
 			Cell currCell = Cell(current_status, lastChoice);
@@ -27,8 +29,8 @@ Direction Runner::step(){
 
 	Cell& c = history.top();
 
-	// std::cout << "isForward: " << isForwardDirection << '\n';
-	// std::cout << history.size() << "Before: \n" << c << "\n";
+	std::cout << "isForward: " << isForwardDirection << '\n';
+	std::cout << history.size() << "Before: \n" << c << "\n";
 	
 	lastChoice = c.chooseNextDirection();
 	
@@ -39,16 +41,21 @@ Direction Runner::step(){
 	if (c.isDeadlock() || checkForDeadlock(x, y)){
 		history.pop();
 		isForwardDirection = false;
-		if (isForwardDirection){
-			addDeadlock(x, y);
-		}
 
+		lastChoice = c.getBackDirection();
 	} else {
 		isForwardDirection = true;
 	}
 
 	c.setDirectionState(lastChoice, true);
-	// std::cout << history.size() << "After: \n" << c << "\n\n\n";
+
+	if (isForwardDirection){
+		addDeadlock(x, y);
+	}
+
+	std::cout << history.size() << "After: \n" << c << "\n";
+	std::cout << "[ " << x << "," << y << " ]\n\n";
+	cin.get();
 
 	return lastChoice;
 }

@@ -1,5 +1,36 @@
-from os import system, path
 import sys
+import datetime
+import subprocess
+from time import time
+from os import system, path
+
+
+# --- Help ---------------------------------------------------------
+
+class Tee(object):
+    def __init__(self, *files):
+        self.files = files
+
+    def write(self, obj):
+        for f in self.files:
+            f.write(obj)
+            f.flush() # If you want the output to be visible immediately
+
+    def flush(self) :
+        for f in self.files:
+            f.flush()
+
+def measureTime(func):
+	if func is None:
+		return None
+
+	beginTime = time()
+	func()
+	endTime = time()
+
+	return round((endTime - beginTime), 3)
+
+# --- Constants ---------------------------------------------------
 
 GENERATOR_FILE = "maze.py"
 EXEC_FILE = "./a.out"
@@ -7,6 +38,11 @@ EXEC_FILE = "./a.out"
 COMPILING = "g++ ../*.cpp -std=c++11 -o " + EXEC_FILE
 
 if __name__ == "__main__":
+	log = open("test log.log", 'a')
+	log.write(str(datetime.datetime.now()) + " " + str(sys.argv))
+
+	sys.stdout = Tee(sys.stdout, log)
+
 	width = 7
 	height = 7
 	isCompile  = True
@@ -44,12 +80,17 @@ if __name__ == "__main__":
 	# --- Running --------------------------------------------------
 
 	if isCompile:
-		print("Compiling... ")
-		system(COMPILING)
-		print("Done.")
+		print("\nCompiling... ")
+		print("Done:", measureTime(lambda: system(COMPILING)), "s.")
 	
 	if isGenerate:
-		system("python3 " + GENERATOR_FILE + " " + str(height) + " " + str(width) + " > " + testFileName)
+		print("\nGenerating...")
+		print("Done:", measureTime(lambda: system("python3 " + GENERATOR_FILE + " " + str(height) + " " + str(width) + " > " + testFileName)), "s.")
 
-	print()
-	system(EXEC_FILE + " " + testFileName)
+	print("\nExecuting...")
+	subprocess.check_output([EXEC_FILE, testFileName])
+	time = measureTime(lambda: print(subprocess.check_output([EXEC_FILE, testFileName])))
+	print("Done:", time, "ms")
+
+	log.write("\n\n")
+	# log.close()

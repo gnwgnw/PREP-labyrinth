@@ -12,6 +12,8 @@
 #include "RunnerBase.hpp"
 #include "Cell.hpp"
 
+// #define DEBUG 0
+
 class Runner: public RunnerBase {
     public:
     	// Constructors

@@ -121,7 +121,7 @@ if __name__ == '__main__':
     # print('  Odd numbers are suggested because of the walls.', file=sys.stderr)
   # print('Non-maze text is printed to stderr, so you \n  can use > to pipe just the maze to a file.\n', file=sys.stderr)
 
-  print('Generating %sx%s maze (not including border)... ' % (height, width), file=sys.stderr)
+  # print('Generating %sx%s maze (not including border)... ' % (height, width), file=sys.stderr)
 
   maze = generate(width, height)
 

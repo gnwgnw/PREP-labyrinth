@@ -3,9 +3,9 @@
 //
 
 #include "Runner.hpp"
+#include "debug.hpp"
 
-#include <iostream>
-using namespace std;
+// #define DEBUG 0
 
 Runner::Runner(){
 	isForwardDirection = true;
@@ -15,9 +15,15 @@ Runner::Runner(){
 }
 
 Direction Runner::step(){
-	std::cout << "[ " << x << "," << y << " ]\n";
+	LOG(0, "Runner position: (", x, ", ", y, ")");
+	LOG(1, "History size   : ", history.size());
+	LOG(1, "Deadlocks size : ", deadlocks.size());
 
+	// current cell must be at the top of history
 	if (isForwardDirection) {
+		LOG(1, "Direction: forward");
+
+		// if forward direction it adds new Cell
 		if (history.size()){
 			Cell currCell = Cell(current_status, lastChoice);
 			history.push(currCell);
@@ -25,39 +31,56 @@ Direction Runner::step(){
 			Cell currCell = Cell(current_status);
 			history.push(currCell);
 		}
-	}
-
-	Cell& c = history.top();
-
-	std::cout << "isForward: " << isForwardDirection << '\n';
-	std::cout << history.size() << "Before: \n" << c << "\n";
-	
-	lastChoice = c.chooseNextDirection();
-	
-	x = x - (lastChoice == Direction::LEFT) + (lastChoice == Direction::RIGHT);
-	y = y - (lastChoice == Direction::UP) + (lastChoice == Direction::DOWN);
-
-
-	if (c.isDeadlock() || checkForDeadlock(x, y)){
-		history.pop();
-		isForwardDirection = false;
-
-		lastChoice = c.getBackDirection();
 	} else {
-		isForwardDirection = true;
+		LOG(1, "Direction: backward");
+
+		// if backward direction do nothing
+		// current cell alredy at the top
 	}
 
-	c.setDirectionState(lastChoice, true);
 
-	if (isForwardDirection){
-		addDeadlock(x, y);
+	// handling current cell
+	Cell& c = history.top();
+	LOG(0, c);
+	
+	// choose new direction
+	Direction nextDirection;
+	bool haveChoice = false;
+
+	while (!haveChoice){
+		if (c.isDeadlock()) {
+			// if deadlock new direction is backward
+
+			addDeadlock(x, y);
+			
+			nextDirection = c.getBackDirection();
+			haveChoice = true;
+
+			history.pop();
+			isForwardDirection = false;
+		} else {
+			// if not try to choose new forward direction
+
+			nextDirection = c.chooseNextDirection();
+			c.setDirectionState(nextDirection, true);
+			LOG(2, "Cheking direction ", (int)nextDirection);
+
+			haveChoice = !checkForDeadlock(nextDirection);
+			isForwardDirection = true;
+
+			if (haveChoice && c.isDeadlock()){
+				addDeadlock(x, y);
+			}
+		}
 	}
 
-	std::cout << history.size() << "After: \n" << c << "\n";
-	std::cout << "[ " << x << "," << y << " ]\n\n";
-	cin.get();
+	// setting new state
+	x = x - (nextDirection == Direction::LEFT) + (nextDirection == Direction::RIGHT);
+	y = y - (nextDirection == Direction::UP) + (nextDirection == Direction::DOWN);
+	lastChoice = nextDirection;
 
-	return lastChoice;
+	LOG(0);
+	return nextDirection;
 }
 
 bool Runner::checkForDeadlock(int x, int y) const{
@@ -72,5 +95,7 @@ bool Runner::checkForDeadlock(const Direction& direction){
 }
 
 void Runner::addDeadlock(int x, int y){
-	deadlocks.push_back(std::make_pair(x, y));
+	if (!checkForDeadlock(x, y)){
+		deadlocks.push_back(std::make_pair(x, y));
+	}
 }

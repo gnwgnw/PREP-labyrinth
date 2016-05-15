@@ -15,6 +15,7 @@ set(
         utils.hpp
         Cell.cpp
         Cell.hpp
+        debug.hpp
 )
 
 add_executable(labyrinth ${SOURCE_FILES})

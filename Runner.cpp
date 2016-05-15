@@ -9,8 +9,8 @@
 Runner::Runner(){
 	isForwardDirection = true;
 
-	x = 0;
-	y = 0;
+	x = 4;
+	y = 3;
 }
 
 Direction Runner::step(){
@@ -74,8 +74,8 @@ Direction Runner::step(){
 	}
 
 	// setting new state
-	x = x - (nextDirection == Direction::LEFT) + (nextDirection == Direction::RIGHT);
-	y = y - (nextDirection == Direction::UP) + (nextDirection == Direction::DOWN);
+	x = x - 2*(nextDirection == Direction::LEFT) + 2*(nextDirection == Direction::RIGHT);
+	y = y - 1*(nextDirection == Direction::UP) + 1*(nextDirection == Direction::DOWN);
 	lastChoice = nextDirection;
 
 	LOG(0);
@@ -87,7 +87,7 @@ bool Runner::checkForDeadlock(int x, int y) const{
 }
 
 bool Runner::checkForDeadlock(const Direction& direction){
-	int nx = x - (direction == Direction::LEFT) + (direction == Direction::RIGHT);
+	int nx = x - 2*(direction == Direction::LEFT) + 2*(direction == Direction::RIGHT);
 	int ny = y - (direction == Direction::UP) + (direction == Direction::DOWN);
 
 	return checkForDeadlock(nx, ny);

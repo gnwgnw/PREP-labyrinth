@@ -5,7 +5,6 @@
 #include "Runner.hpp"
 #include "debug.hpp"
 
-// #define DEBUG 0
 
 Runner::Runner(){
 	isForwardDirection = true;
@@ -84,7 +83,7 @@ Direction Runner::step(){
 }
 
 bool Runner::checkForDeadlock(int x, int y) const{
-	return std::find(deadlocks.cbegin(), deadlocks.cend(), std::make_pair(x, y)) != deadlocks.cend();
+	return std::find(deadlocks.rbegin(), deadlocks.rend(), std::make_pair(x, y)) != deadlocks.rend();
 }
 
 bool Runner::checkForDeadlock(const Direction& direction){
@@ -95,7 +94,5 @@ bool Runner::checkForDeadlock(const Direction& direction){
 }
 
 void Runner::addDeadlock(int x, int y){
-	if (!checkForDeadlock(x, y)){
-		deadlocks.push_back(std::make_pair(x, y));
-	}
+	deadlocks.push_back(std::make_pair(x, y));
 }

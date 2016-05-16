@@ -32,7 +32,7 @@ class Runner: public RunnerBase {
 		int y;
 
 		bool checkForDeadlock(int x, int y) const;
-		bool checkForDeadlock(const Direction&);
+		bool checkForDeadlock(const Direction&) const;
 
 		void addDeadlock(int x, int y);
 };

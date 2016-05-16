@@ -85,12 +85,12 @@ if __name__ == "__main__":
 	
 	if isGenerate:
 		print("\nGenerating...")
-		print("Done:", measureTime(lambda: system("python3 " + GENERATOR_FILE + " " + str(height) + " " + str(width) + " > " + testFileName)), "s.")
+		print("Done:", measureTime(lambda: system("pypy " + GENERATOR_FILE + " " + str(height) + " " + str(width) + " > " + testFileName)), "s.")
 
 	print("\nExecuting...")
 	subprocess.check_output([EXEC_FILE, testFileName])
 	time = measureTime(lambda: print(subprocess.check_output([EXEC_FILE, testFileName])))
-	print("Done:", time, "ms")
+	print("Done:", time, "s")
 
 	log.write("\n\n")
 	# log.close()

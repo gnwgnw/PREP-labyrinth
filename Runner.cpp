@@ -49,8 +49,6 @@ Direction Runner::step(){
 	while (!haveChoice){
 		if (c.isDeadlock()) {
 			// if deadlock new direction is backward
-
-			addDeadlock(x, y);
 			
 			nextDirection = c.getBackDirection();
 			haveChoice = true;
@@ -66,11 +64,11 @@ Direction Runner::step(){
 
 			haveChoice = !checkForDeadlock(nextDirection);
 			isForwardDirection = true;
-
-			if (haveChoice && c.isDeadlock()){
-				addDeadlock(x, y);
-			}
 		}
+	}
+
+	if (c.isDeadlock()){
+		addDeadlock(x, y);
 	}
 
 	// setting new state
@@ -86,7 +84,7 @@ bool Runner::checkForDeadlock(int x, int y) const{
 	return std::find(deadlocks.crbegin(), deadlocks.crend(), std::make_pair(x, y)) != deadlocks.crend();
 }
 
-bool Runner::checkForDeadlock(const Direction& direction){
+bool Runner::checkForDeadlock(const Direction& direction) const{
 	int nx = x - 2*(direction == Direction::LEFT) + 2*(direction == Direction::RIGHT);
 	int ny = y - (direction == Direction::UP) + (direction == Direction::DOWN);
 

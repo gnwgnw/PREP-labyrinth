@@ -6,6 +6,11 @@
 using std::cout;
 using std::ifstream;
 
+void hack(Field &f)
+{
+    f.done = true;
+}
+
 int main(int argc, char* argv[])
 {
     if (argc != 2) {
@@ -20,6 +25,8 @@ int main(int argc, char* argv[])
 
         file.open(argv[1]);
         file >> field;
+
+        hack(field);
 
         while (!field.is_done()) {
             field.tic();

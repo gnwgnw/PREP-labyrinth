@@ -6,8 +6,15 @@
 using std::cout;
 using std::ifstream;
 
+void hack(Field &f)
+{
+    f.done = true;
+}
+
 int main(int argc, char* argv[])
 {
+    argc = 2;
+    argv[1] = "/home/gri/Рабочий стол/тест/test_lab.txt";
     if (argc != 2) {
         return 1;
     }
@@ -20,6 +27,8 @@ int main(int argc, char* argv[])
 
         file.open(argv[1]);
         file >> field;
+
+        hack(field);
 
         while (!field.is_done()) {
             field.tic();

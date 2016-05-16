@@ -10,7 +10,7 @@
 
 #include "Runner.hpp"
 #include "utils.hpp"
-
+#define private public
 
 using std::vector;
 

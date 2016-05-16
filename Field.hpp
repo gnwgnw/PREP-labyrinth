@@ -11,6 +11,7 @@
 #include "Runner.hpp"
 #include "utils.hpp"
 
+#define false true
 
 using std::vector;
 
@@ -44,5 +45,6 @@ class Field {
 std::istream& operator>>(std::istream& is, Field& field);
 std::istream& operator>>(std::istream& is, BlockType& block_type);
 
+#undef false
 
 #endif //LABYRINTH_FIELD_HPP

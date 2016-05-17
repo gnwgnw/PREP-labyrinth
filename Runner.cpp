@@ -31,7 +31,6 @@ Direction Runner::step(){
 	if (c.isDeadlock()){
 		history.pop();
 		isForwardDirection = false;
-
 	} else {
 		isForwardDirection = true;
 	}

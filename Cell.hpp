@@ -12,7 +12,7 @@
 class Cell{
 	public:
 		// Constructors & Destructors
-		Cell();
+		Cell() = default;
 		Cell(const Status& state, const Direction& prevStep);
 		Cell(const Status& state);
 

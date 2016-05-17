@@ -36,6 +36,7 @@ Direction Runner::step(){
 		isForwardDirection = true;
 	}
 	c.setDirectionState(lastChoice, true);
+	// std::cin.get();
 	// std::cout << history.size() << "After: \n" << c << "\n\n\n";
 
 	return lastChoice;

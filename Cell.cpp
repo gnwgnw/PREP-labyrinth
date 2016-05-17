@@ -15,10 +15,6 @@ Direction getOppositeDirection(const Direction& direction){
 }
 
 // Constructors & Destructors
-Cell::Cell(){
-
-}
-
 Cell::Cell(const Status& status, const Direction& prevDirection)
 : Cell(status){
     prevStep = prevDirection;
@@ -30,6 +26,7 @@ Cell::Cell(const Status& status, const Direction& prevDirection)
 
 Cell::Cell(const Status& status){
 	state = status;
+	prevStep = Direction::DOWN;
 
     upDone   = state.up == BlockType::WALL;
     downDone  = state.down == BlockType::WALL;
@@ -81,6 +78,8 @@ Direction Cell::chooseNextDirection() const{
 	if (state.right == BlockType::EXIT) return Direction::RIGHT;
 
 	// !!! Direction priority !!!
+	if (!getDirectionState(prevStep)) return prevStep;
+
 	if (!rightDone) return Direction::RIGHT;
 	if (!downDone)  return Direction::DOWN;
 	if (!upDone)    return Direction::UP;

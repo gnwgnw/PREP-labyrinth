@@ -20,20 +20,20 @@ Direction Runner::step()
     {
         forkMem.push(prevStep);
 
-        while (!canGo(goRight(prevStep)))
-            prevStep = goRight(prevStep);
+        while (!canGo(goLeft(prevStep)))
+            prevStep = goLeft(prevStep);
 
-        nextStep = goRight(prevStep);
+        nextStep = goLeft(prevStep);
         prevStep = inverse(nextStep);
         return nextStep;
     }
     if (deadlock)
     {
 
-        while (!canGo(goRight(prevStep)) && goRight(prevStep) != forkMem.top())
-            prevStep = goRight(prevStep);
+        while (!canGo(goLeft(prevStep)) && goLeft(prevStep) != forkMem.top())
+            prevStep = goLeft(prevStep);
 
-        if (goRight(prevStep) == forkMem.top())
+        if (goLeft(prevStep) == forkMem.top())
         {
             deadlock = true;
             nextStep = forkMem.top();
@@ -41,7 +41,7 @@ Direction Runner::step()
             return nextStep;
         }
         deadlock = false;
-        nextStep = goRight(prevStep);
+        nextStep = goLeft(prevStep);
         prevStep = inverse(nextStep);
         return nextStep;
 

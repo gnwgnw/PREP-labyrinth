@@ -46,6 +46,7 @@ public:
 
 void Field::tic()
 {
+	
 	current_position.x = 4;
 	current_position.y = 4;
 	go(Direction::DOWN);
@@ -115,6 +116,7 @@ bool Field::is_done()
 
 void Field::go(Direction d)
 {
+	tic_count++;
 	if (is_done())
 	{
 		return;
@@ -140,7 +142,7 @@ void Field::go(Direction d)
 
 void Field::result(std::ostream& os)
 {
-	os << "x : " << current_position.x << "    y:  " << current_position.y << "\n";
+	os << "Result: " << tic_count;
 }
 
 

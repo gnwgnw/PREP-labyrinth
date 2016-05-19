@@ -33,13 +33,13 @@ public:
 
     bool deadlock();
 
-    Direction to_exit();
+ //   Direction to_exit();
 
     Direction step();
 
-    bool exit();
+ //   bool exit();
 
-    std::vector<Direction >* where();
+  //  std::vector<Direction >* where();
 
 
 

@@ -7,44 +7,40 @@
 
 #include "RunnerBase.hpp"
 
-#include "vector"
+
 #include "iostream"
-#include <stack>
+#include "vector"
 #include "RunnerBase.hpp"
+struct Coord {
+    int x;
+    int y;
 
-struct Node {
-
-
-    bool up = false;
-    bool down = false;
     bool right = false;
+    bool down = false;
     bool left = false;
+    bool up = false;
 
     Direction direction;
-
 };
 
 class Runner: public RunnerBase {
 public:
 
-    std::stack<Node> stack;
+    std::vector<Direction >* where() ;
+
+    bool include(Direction d);
+
 
     bool is_free(Direction d);
 
     bool deadlock();
 
- //   Direction to_exit();
+    std::vector<Coord> history;
+
+
 
     Direction step();
-
- //   bool exit();
-
-  //  std::vector<Direction >* where();
-
-
-
 };
-
 
 
 

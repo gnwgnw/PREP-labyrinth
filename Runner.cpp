@@ -86,67 +86,6 @@ D reverse(D d) {
 }
 
 
-D Runner::to_exit()
-{
-
-    if (current_status.left == B::EXIT) {
-        return D::LEFT;
-    }
-    if (current_status.right == B::EXIT) {
-        return D::RIGHT;
-    }
-    if (current_status.up == B::EXIT) {
-        return D::UP;
-    }
-    if (current_status.down == B::EXIT) {
-        return D::DOWN;
-    }
-
-}
-
-bool Runner::exit()
-{
-    if (current_status.down == B::EXIT ||
-        current_status.left == B::EXIT ||
-        current_status.right == B::EXIT ||
-        current_status.up == B::EXIT)
-        return true;
-
-    return false;
-
-}
-
-std::vector<Direction >* Runner::where() {
-
-    std::vector<Direction> *v = new std::vector<Direction >();
-
-    if (is_free(D::DOWN)) {
-        v->push_back(D::DOWN);
-    }
-
-    if (is_free(D::RIGHT)) {
-        v->push_back(D::RIGHT);
-    }
-
-    if (is_free(D::UP)) {
-        v->push_back(D::UP);
-    }
-
-    if (is_free(D::LEFT)) {
-        v->push_back(D::LEFT);
-    }
-    return v;
-}
-
-
-
-
-
-
-
-
-
-
 D Runner::step() {
 
     if (stack.empty()) {
@@ -161,62 +100,64 @@ D Runner::step() {
         return d;
     }
     else {
-        if (exit()) return to_exit();
+        if (current_status.left == B::EXIT) {
+            return D::LEFT;
+        }
+        if (current_status.right == B::EXIT) {
+            return D::RIGHT;
+        }
+        if (current_status.up == B::EXIT) {
+            return D::UP;
+        }
+        if (current_status.down == B::EXIT) {
+            return D::DOWN;
+        }
 
-        std::vector<Direction > *v = where();
+        if (is_free(D::RIGHT)) {
+            stack.top().right = true;
+            stack.top().direction = D::RIGHT;
 
-        int n = v->size();
-        int rand_direction = rand()%n;
+            Node node;
+            node.left = true;
 
-        D dir = v->data()[rand_direction];
+            stack.push(node);
 
-        delete(v);
+            return D::RIGHT;
+        }
 
-        switch (dir) {
-            case D::RIGHT: {
-                stack.top().right = true;
-                stack.top().direction = D::RIGHT;
+        if (is_free(D::DOWN)) {
+            stack.top().down = true;
+            stack.top().direction = D::DOWN;
 
-                Node node;
-                node.left = true;
+            Node node;
+            node.up = true;
 
-                stack.push(node);
+            stack.push(node);
+            return D::DOWN;
 
-                return D::RIGHT;
             }
 
-            case D::LEFT: {
-                stack.top().left = true;
-                stack.top().direction = D::LEFT;
+        if (is_free(D::LEFT)) {
+            stack.top().left = true;
+            stack.top().direction = D::LEFT;
 
-                Node node;
-                node.right = true;
+            Node node;
+            node.right = true;
 
-                stack.push(node);
-                return D::LEFT;
+            stack.push(node);
+            return D::LEFT;
             }
 
-            case D::UP: {
-                stack.top().up = true;
-                stack.top().direction = D::UP;
+        if (is_free(D::UP)) {
+            stack.top().up = true;
+            stack.top().direction = D::UP;
 
-                Node node;
-                node.down = true;
+            Node node;
+            node.down = true;
 
-                stack.push(node);
-                return D::UP;
-            }
+            stack.push(node);
+            return D::UP;
 
-            case D::DOWN: {
-                stack.top().down = true;
-                stack.top().direction = D::DOWN;
-
-                Node node;
-                node.up = true;
-
-                stack.push(node);
-                return D::DOWN;
             }
         }
     }
-}

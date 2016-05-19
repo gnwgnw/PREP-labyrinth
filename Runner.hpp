@@ -8,22 +8,15 @@
 
 class Runner: public RunnerBase {
     private:
-        int** map_lab;
-        int x;
-        int y;
-        int height_map;
-        int width_map;
-        int height_map_max;
-        int width_map_max;
-        int move_deadlock;
-
+        int f_check;
+        int left_dir;
+        int last_step;
     public:
         Runner();
-        void create_map_lab();
         Direction step();
         Direction check_move();
-        void draw_map();
-        void print_map();
+        void set_dir();
+
 };
 
 #endif //LABYRINTH_RUNNER_HPP

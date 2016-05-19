@@ -7,10 +7,41 @@
 
 #include "RunnerBase.hpp"
 
-class Runner: public RunnerBase {
-    public:
-        Direction step();
+
+#include "iostream"
+#include "vector"
+#include "RunnerBase.hpp"
+struct Coord {
+    int x;
+    int y;
+
+    bool right = false;
+    bool down = false;
+    bool left = false;
+    bool up = false;
+
+    Direction direction;
 };
+
+class Runner: public RunnerBase {
+public:
+
+    std::vector<Direction >* where() ;
+
+    bool include(Direction d);
+
+
+    bool is_free(Direction d);
+
+    bool deadlock();
+
+    std::vector<Coord> history;
+
+
+
+    Direction step();
+};
+
 
 
 #endif //LABYRINTH_RUNNER_HPP

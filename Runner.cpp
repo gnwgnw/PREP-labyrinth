@@ -4,3 +4,8 @@
 
 #include "Runner.hpp"
 
+Direction Runner::step()
+{
+	Direction direction = Direction::UP;
+	return direction;
+}

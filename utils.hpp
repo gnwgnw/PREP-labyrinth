@@ -10,7 +10,7 @@ enum class BlockType {
         FREE = 0,
         WALL = 1,
         ENTER = 2,
-        EXIT = 2
+        EXIT = 3
 };
 
 enum class Direction {

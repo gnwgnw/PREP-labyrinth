@@ -5,11 +5,45 @@
 #ifndef LABYRINTH_RUNNER_HPP
 #define LABYRINTH_RUNNER_HPP
 
+#include "iostream"
+#include "vector"
 #include "RunnerBase.hpp"
+struct Coord {
+    int x;
+    int y;
+
+    bool right = false;
+    bool down = false;
+    bool left = false;
+    bool up = false;
+
+    Direction direction;
+};
 
 class Runner: public RunnerBase {
     public:
-        Direction step();
+  //  std::vector<Direction >* where() ;
+    bool include(Direction d);
+
+   // Direction where(int x, int y);
+
+    bool free_right = false;
+    bool free_left = false;
+    bool free_up = false;
+    bool free_down = false;
+
+    void clear_current_dir();
+
+
+    bool is_free(Direction d);
+
+    bool deadlock();
+
+    std::vector<Coord> history;
+
+
+
+    Direction step();
 };
 
 

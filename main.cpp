@@ -8,6 +8,9 @@ using std::ifstream;
 
 int main(int argc, char* argv[])
 {
+   // srand(time(0));
+  //  argc = 2;
+  //  argv[1] = "/home/gri/Рабочий стол/тест/test_lab1.txt";
     if (argc != 2) {
         return 1;
     }

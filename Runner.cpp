@@ -90,27 +90,28 @@ bool Runner::is_free(D d) {
 
 bool Runner::deadlock()
 {
-    int flag = 0;
 
     if (is_free(D::RIGHT)) {
-        flag ++;
+        free_right = true;
+        return false;
+    }
+
+    if (is_free(D::DOWN)) { //!!!!!!
+        free_down = true;
+        return false;
     }
 
     if (is_free(D::LEFT)) {
-        flag++;
+        free_left = true;
+        return false;
     }
 
     if (is_free(D::UP)) {
-        flag++;
+        free_up = true;
+        return false;
     }
 
-    if (is_free(D::DOWN)) {
-        flag++;
-    }
-
-    if (flag == 0) return true;
-
-    return false;
+    return true;
 }
 
 D reverse(D d) {
@@ -121,7 +122,7 @@ D reverse(D d) {
 }
 
 
-std::vector<Direction >* Runner::where() {
+/*std::vector<Direction >* Runner::where() {
 
     std::vector<Direction> *v = new std::vector<Direction >();
 
@@ -141,10 +142,15 @@ std::vector<Direction >* Runner::where() {
         v->push_back(D::LEFT);
     }
     return v;
+}*/
+
+
+void Runner::clear_current_dir() {
+    free_right = false;
+    free_up = false;
+    free_down = false;
+    free_left = false;
 }
-
-
-
 
 Direction Runner::step(){
 
@@ -162,6 +168,20 @@ Direction Runner::step(){
         return reverse(history.back().direction);
     }
     else {
+
+        if (current_status.left == B::EXIT) {
+            return D::LEFT;
+        }
+        if (current_status.right == B::EXIT) {
+            return D::RIGHT;
+        }
+        if (current_status.up == B::EXIT) {
+            return D::UP;
+        }
+        if (current_status.down == B::EXIT) {
+            return D::DOWN;
+        }
+
        /* std::vector<Direction > *v = where();
 
         int n = v->size();
@@ -229,7 +249,7 @@ Direction Runner::step(){
 
 
         } */
-        if (is_free(D::RIGHT)) {
+        if (free_right) {
             history.back().right = true;
             history.back().direction = D::RIGHT;
 
@@ -240,10 +260,12 @@ Direction Runner::step(){
 
             history.push_back(coord);
 
+            clear_current_dir();
+
             return D::RIGHT;
         }
 
-        if (is_free(D::DOWN)) {
+        if (free_down) {
             history.back().down = true;
             history.back().direction = D::DOWN;
 
@@ -253,11 +275,14 @@ Direction Runner::step(){
             coord.up = true;
 
             history.push_back(coord);
+
+            clear_current_dir();
+
             return D::DOWN;
 
         }
 
-        if (is_free(D::LEFT)) {
+        if (free_left) {
             history.back().left = true;
             history.back().direction = D::LEFT;
 
@@ -267,10 +292,13 @@ Direction Runner::step(){
             coord.right = true;
 
             history.push_back(coord);
+
+            clear_current_dir();
+
             return D::LEFT;
         }
 
-        if (is_free(D::UP)) {
+        if (free_up) {
             history.back().up = true;
             history.back().direction = D::UP;
 
@@ -280,6 +308,9 @@ Direction Runner::step(){
             coord.down = true;
 
             history.push_back(coord);
+
+            clear_current_dir();
+
             return D::UP;
 
         }

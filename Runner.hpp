@@ -22,10 +22,18 @@ struct Coord {
 
 class Runner: public RunnerBase {
     public:
-    std::vector<Direction >* where() ;
+  //  std::vector<Direction >* where() ;
     bool include(Direction d);
 
    // Direction where(int x, int y);
+
+    bool free_right = false;
+    bool free_left = false;
+    bool free_up = false;
+    bool free_down = false;
+
+    void clear_current_dir();
+
 
     bool is_free(Direction d);
 

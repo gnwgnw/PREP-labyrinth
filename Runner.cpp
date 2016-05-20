@@ -240,6 +240,9 @@ D Runner::step() {
             node.right = true;
 
             stack.push(node);
+            
+            clear_current_dir();
+            
             return D::LEFT;
         }
 

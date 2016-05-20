@@ -202,6 +202,19 @@ D Runner::step() {
 
         } */
 
+        if (free_right) {
+            stack.top().right = true;
+            stack.top().direction = D::RIGHT;
+
+            Node node;
+            node.left = true;
+
+            stack.push(node);
+
+            clear_current_dir();
+
+            return D::RIGHT;
+        }
 
         if (free_down) {
             stack.top().down = true;
@@ -219,32 +232,6 @@ D Runner::step() {
         }
 
 
-        if (free_right) {
-            stack.top().right = true;
-            stack.top().direction = D::RIGHT;
-
-            Node node;
-            node.left = true;
-
-            stack.push(node);
-
-            clear_current_dir();
-
-            return D::RIGHT;
-        }
-
-
-        if (free_left) {
-            stack.top().left = true;
-            stack.top().direction = D::LEFT;
-
-            Node node;
-            node.right = true;
-
-            stack.push(node);
-            return D::LEFT;
-        }
-
         if (free_up) {
             stack.top().up = true;
             stack.top().direction = D::UP;
@@ -259,6 +246,20 @@ D Runner::step() {
             return D::UP;
 
         }
+
+
+        if (free_left) {
+            stack.top().left = true;
+            stack.top().direction = D::LEFT;
+
+            Node node;
+            node.right = true;
+
+            stack.push(node);
+            return D::LEFT;
+        }
+
+
 
 
 

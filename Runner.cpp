@@ -58,26 +58,26 @@ bool Runner::deadlock()
     int flag = 0;
 
     if (is_free(D::RIGHT)) {
-        direction.push_back(D::RIGHT);
-       // free_right = true;
+      //  direction.push_back(D::RIGHT);
+        free_right = true;
         flag ++;
     }
 
     if (is_free(D::LEFT)) {
-        direction.push_back(D::LEFT);
-       // free_left = true;
+     //   direction.push_back(D::LEFT);
+        free_left = true;
         flag++;
     }
 
     if (is_free(D::UP)) {
-        direction.push_back(D::UP);
-      //  free_up = true;
+     //   direction.push_back(D::UP);
+        free_up = true;
         flag++;
     }
 
     if (is_free(D::DOWN)) {
-        direction.push_back(D::DOWN);
-      //  free_down = true;
+       // direction.push_back(D::DOWN);
+        free_down = true;
         flag++;
     }
 
@@ -93,7 +93,12 @@ D reverse(D d) {
     if (d == D::UP) return D::DOWN;
 }
 
-
+void Runner::clear_current_dir() {
+    free_right = false;
+    free_up = false;
+    free_down = false;
+    free_left = false;
+}
 
 
 
@@ -130,7 +135,7 @@ D Runner::step() {
 
 
 
-        int n = direction.size();
+      /*  int n = direction.size();
         int rand_dir = rand() % n;
         Direction dir = direction[rand_dir];
 
@@ -195,22 +200,8 @@ D Runner::step() {
 
 
 
-        }
+        } */
 
-
-
-
-       /* if (free_right) {
-            stack.top().right = true;
-            stack.top().direction = D::RIGHT;
-
-            Node node;
-            node.left = true;
-
-            stack.push(node);
-
-            return D::RIGHT;
-        }
 
         if (free_down) {
             stack.top().down = true;
@@ -220,9 +211,28 @@ D Runner::step() {
             node.up = true;
 
             stack.push(node);
+
+            clear_current_dir();
+
             return D::DOWN;
 
         }
+
+
+        if (free_right) {
+            stack.top().right = true;
+            stack.top().direction = D::RIGHT;
+
+            Node node;
+            node.left = true;
+
+            stack.push(node);
+
+            clear_current_dir();
+
+            return D::RIGHT;
+        }
+
 
         if (free_left) {
             stack.top().left = true;
@@ -243,9 +253,12 @@ D Runner::step() {
             node.down = true;
 
             stack.push(node);
+
+            clear_current_dir();
+
             return D::UP;
 
-        }*/
+        }
 
 
 

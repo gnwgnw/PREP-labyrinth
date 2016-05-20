@@ -13,22 +13,22 @@ bool Runner::include(D d) {
     int y = history.back().y;
 
     switch (d) {
-        case Direction::RIGHT: {
+        case D::RIGHT: {
             x++; // следующий coord
             break;
         }
 
-        case Direction::LEFT: {
+        case D::LEFT: {
             x--;
             break;
         }
 
-        case Direction::UP: {
+        case D::UP: {
             y++;
             break;
         }
 
-        case Direction::DOWN: {
+        case D::DOWN: {
             y--;
             break;
         }

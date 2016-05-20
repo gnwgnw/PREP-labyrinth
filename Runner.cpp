@@ -4,3 +4,7 @@
 
 #include "Runner.hpp"
 
+Direction Runner::step()
+{
+    return Direction::RIGHT;
+}

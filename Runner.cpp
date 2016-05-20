@@ -3,115 +3,87 @@
 //
 
 #include "Runner.hpp"
-#include <algorithm>
+
+#include "vector"
+#include "Runner.hpp"
+#include "iostream"
+#include "stack"
+#include "cstdlib"
+#include <ctime>
+
 
 typedef BlockType B;
 typedef Direction D;
 
-bool Runner::include(D d) {
-    int x = history.back().x;
-    int y = history.back().y;
 
+bool Runner::is_free(D d)
+{
+    Node *n = &stack.top();
     switch (d) {
+
         case D::RIGHT: {
-            x++; // следующий coord
+
+            if ((current_status.right == B::FREE || current_status.right == B::EXIT  ) && !n->right)
+                return true;
             break;
+
         }
 
         case D::LEFT: {
-            x--;
+
+            if ((current_status.left == B::FREE || current_status.left == B::EXIT  ) && !n->left)
+                return true;
             break;
         }
 
         case D::UP: {
-            y++;
+            if ((current_status.up == B::FREE || current_status.up == B::EXIT  ) && !n->up)
+                return true;
             break;
         }
 
         case D::DOWN: {
-            y--;
-            break;
-        }
-
-    }
-
-    for (int i = history.size() - 1; i >=0 ; --i) {
-        if (history[i].x == x && history[i].y == y) return true;
-    }
-    return false;
-}
-
-
-bool Runner::is_free(D d) {
-
-    switch (d) {
-        case D::RIGHT: {
-            if ((current_status.right == B::FREE || current_status.right == B::EXIT)
-                && !history.back().right &&
-                    !include(D::RIGHT)) {
+            if ((current_status.down == B::FREE || current_status.down == B::EXIT  ) && !n->down)
                 return true;
-            }
             break;
         }
 
-
-        case D::UP: {
-            if ((current_status.up == B::FREE || current_status.up == B::EXIT) &&
-                    !history.back().up &&
-                    !include(D::UP)) {
-                return true;
-            }
-            break;
-        }
-
-        case D::LEFT: {
-            if ((current_status.left == B::FREE || current_status.left == B::EXIT) &&
-                    !history.back().left &&
-                    !include(D::LEFT)) {
-                return true;
-            }
-            break;
-        }
-
-        case D::DOWN: {
-            if ((current_status.down == B::FREE || current_status.down == B::EXIT) &&
-                    !history.back().down &&
-                    !include(D::DOWN)) {
-                return true;
-            }
-            break;
-
-        }
     }
 
     return false;
-
 }
 
 bool Runner::deadlock()
 {
+    int flag = 0;
 
     if (is_free(D::RIGHT)) {
-        free_right = true;
-        return false;
-    }
-
-    if (is_free(D::DOWN)) { //!!!!!!
-        free_down = true;
-        return false;
+        direction.push_back(D::RIGHT);
+       // free_right = true;
+        flag ++;
     }
 
     if (is_free(D::LEFT)) {
-        free_left = true;
-        return false;
+        direction.push_back(D::LEFT);
+       // free_left = true;
+        flag++;
     }
 
     if (is_free(D::UP)) {
-        free_up = true;
-        return false;
+        direction.push_back(D::UP);
+      //  free_up = true;
+        flag++;
     }
 
-    return true;
+    if (is_free(D::DOWN)) {
+        direction.push_back(D::DOWN);
+      //  free_down = true;
+        flag++;
+    }
+
+    if (flag == 0) return true;
+
+    return false;
 }
 
 D reverse(D d) {
@@ -122,259 +94,212 @@ D reverse(D d) {
 }
 
 
-/*std::vector<Direction >* Runner::where() {
-
-    std::vector<Direction> *v = new std::vector<Direction >();
-
-    if (is_free(D::DOWN)) {
-        v->push_back(D::DOWN);
-    }
-
-    if (is_free(D::RIGHT)) {
-        v->push_back(D::RIGHT);
-    }
-
-    if (is_free(D::UP)) {
-        v->push_back(D::UP);
-    }
-
-    if (is_free(D::LEFT)) {
-        v->push_back(D::LEFT);
-    }
-    return v;
-}*/
 
 
-void Runner::clear_current_dir() {
-    free_right = false;
-    free_up = false;
-    free_down = false;
-    free_left = false;
-}
 
-Direction Runner::step(){
+D Runner::step() {
 
-    if (history.empty()) {
-        Coord coord;
-
-        coord.x = 0;
-        coord.y = 0;
-
-        history.push_back(coord);
+    if (stack.empty()) {
+        Node node;
+        stack.push(node);
     }
 
     if (deadlock()) {
-        history.erase(history.end()-1);
-        return reverse(history.back().direction);
+        stack.pop();
+        D d = reverse(stack.top().direction); // Если тупик вернуться назад
+        return d;
     }
+
     else {
 
         if (current_status.left == B::EXIT) {
             return D::LEFT;
         }
+
         if (current_status.right == B::EXIT) {
             return D::RIGHT;
         }
+
         if (current_status.up == B::EXIT) {
             return D::UP;
         }
+
         if (current_status.down == B::EXIT) {
             return D::DOWN;
         }
 
-       /* std::vector<Direction > *v = where();
 
-        int n = v->size();
-        int rand_direction = rand()%n;
 
-        D dir = v->data()[rand_direction];
+        int n = direction.size();
+        int rand_dir = rand() % n;
+        Direction dir = direction[rand_dir];
 
-        delete(v);
-
+        direction.clear();
 
         switch (dir) {
             case D::RIGHT: {
-                history.back().right = true;
-                history.back().direction = D::RIGHT;
 
-                Coord coord;
-                coord.x = history.back().x + 1;
-                coord.y = history.back().y;
-                coord.left = true;
+                stack.top().right = true;
+                stack.top().direction = D::RIGHT;
 
-                history.push_back(coord);
+                Node node;
+                node.left = true;
+
+                stack.push(node);
 
                 return D::RIGHT;
+
             }
+
 
             case D::LEFT: {
-                history.back().left = true;
-                history.back().direction = D::LEFT;
 
-                Coord coord;
-                coord.x = history.back().x -1;
-                coord.y = history.back().y;
-                coord.right = true;
+                stack.top().left = true;
+                stack.top().direction = D::LEFT;
 
-                history.push_back(coord);
+                Node node;
+                node.right = true;
+
+                stack.push(node);
                 return D::LEFT;
+
             }
+
+
             case D::UP: {
-                history.back().up = true;
-                history.back().direction = D::UP;
 
-                Coord coord;
-                coord.x = history.back().x;
-                coord.y = history.back().y + 1;
-                coord.down = true;
+                stack.top().up = true;
+                stack.top().direction = D::UP;
 
-                history.push_back(coord);
+                Node node;
+                node.down = true;
+
+                stack.push(node);
                 return D::UP;
+
             }
+
+
             case D::DOWN: {
-                history.back().down = true;
-                history.back().direction = D::DOWN;
 
-                Coord coord;
-                coord.x = history.back().x;
-                coord.y = history.back().y - 1;
-                coord.up = true;
+                stack.top().down = true;
+                stack.top().direction = D::DOWN;
 
-                history.push_back(coord);
+                Node node;
+                node.up = true;
+
+                stack.push(node);
                 return D::DOWN;
+
             }
 
 
 
+        }
 
 
-        } */
-        if (free_right) {
-            history.back().right = true;
-            history.back().direction = D::RIGHT;
 
-            Coord coord;
-            coord.x = history.back().x + 1;
-            coord.y = history.back().y;
-            coord.left = true;
 
-            history.push_back(coord);
+       /* if (free_right) {
+            stack.top().right = true;
+            stack.top().direction = D::RIGHT;
 
-            clear_current_dir();
+            Node node;
+            node.left = true;
+
+            stack.push(node);
 
             return D::RIGHT;
         }
 
         if (free_down) {
-            history.back().down = true;
-            history.back().direction = D::DOWN;
+            stack.top().down = true;
+            stack.top().direction = D::DOWN;
 
-            Coord coord;
-            coord.x = history.back().x;
-            coord.y = history.back().y - 1;
-            coord.up = true;
+            Node node;
+            node.up = true;
 
-            history.push_back(coord);
-
-            clear_current_dir();
-
+            stack.push(node);
             return D::DOWN;
 
         }
 
         if (free_left) {
-            history.back().left = true;
-            history.back().direction = D::LEFT;
+            stack.top().left = true;
+            stack.top().direction = D::LEFT;
 
-            Coord coord;
-            coord.x = history.back().x -1;
-            coord.y = history.back().y;
-            coord.right = true;
+            Node node;
+            node.right = true;
 
-            history.push_back(coord);
-
-            clear_current_dir();
-
+            stack.push(node);
             return D::LEFT;
         }
 
         if (free_up) {
-            history.back().up = true;
-            history.back().direction = D::UP;
+            stack.top().up = true;
+            stack.top().direction = D::UP;
 
-            Coord coord;
-            coord.x = history.back().x;
-            coord.y = history.back().y + 1;
-            coord.down = true;
+            Node node;
+            node.down = true;
 
-            history.push_back(coord);
-
-            clear_current_dir();
-
+            stack.push(node);
             return D::UP;
 
-        }
+        }*/
 
 
 
 
+       /* if (is_free(D::RIGHT)) {
+            stack.top().right = true;
+            stack.top().direction = D::RIGHT;
 
+            Node node;
+            node.left = true;
 
+            stack.push(node);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-   /* switch (d) {
-        case Direction::RIGHT: {
-            history.back().left = true;
-            history.back().x++; // следующий coord
             return D::RIGHT;
         }
 
+        if (is_free(D::DOWN)) {
+            stack.top().down = true;
+            stack.top().direction = D::DOWN;
 
-        case Direction::LEFT: {
-            history.back().right = true;
-            history.back().x--;
-            return D::LEFT;
-        }
+            Node node;
+            node.up = true;
 
-
-        case Direction::UP: {
-            history.back().down = true;
-            history.back().y++;
-            return D::UP;
-        }
-
-
-        case Direction::DOWN: {
-            history.back().up = true;
-            history.back().y--;
+            stack.push(node);
             return D::DOWN;
+
+            }
+
+        if (is_free(D::LEFT)) {
+            stack.top().left = true;
+            stack.top().direction = D::LEFT;
+
+            Node node;
+            node.right = true;
+
+            stack.push(node);
+            return D::LEFT;
+            }
+
+        if (is_free(D::UP)) {
+            stack.top().up = true;
+            stack.top().direction = D::UP;
+
+            Node node;
+            node.down = true;
+
+            stack.push(node);
+            return D::UP;
+
+            }*/
+
+
+
+
+
         }
-
-
-
-    }*/
-
-
-}
+    }

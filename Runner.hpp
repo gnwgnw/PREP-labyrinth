@@ -7,10 +7,50 @@
 
 #include "RunnerBase.hpp"
 
-class Runner: public RunnerBase {
-    public:
-        Direction step();
+#include "vector"
+#include "iostream"
+#include <stack>
+#include "RunnerBase.hpp"
+
+struct Node {
+
+
+    bool up = false;
+    bool down = false;
+    bool right = false;
+    bool left = false;
+
+    Direction direction;
+
 };
+
+class Runner: public RunnerBase {
+public:
+
+    std::stack<Node> stack;
+
+    bool is_free(Direction d);
+
+    bool deadlock();
+
+ //   Direction to_exit();
+
+    Direction step();
+
+  /*  bool free_right = false;
+    bool free_left = false;
+    bool free_down = false;
+    bool free_up = false;*/
+
+ //   bool exit();
+
+    std::vector<Direction > direction;
+
+
+
+};
+
+
 
 
 #endif //LABYRINTH_RUNNER_HPP

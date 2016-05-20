@@ -105,7 +105,7 @@ void print(Status st)
 class path
 {
 public:
-	bool return_mode = false;
+	bool return_mode = true;
 
 	std::stack<info*> stack_info;
 
@@ -117,7 +117,7 @@ public:
 	void new_branch(Status status)
 	{
 		//std::cout << std::endl << "NEW BRANCH FROM " << reverse(now_vector) << std::endl;
-		now_info = new info(status, reverse(now_vector));
+		now_info = new info(status, (now_vector != -1) ? reverse(now_vector) : -1);
 		stack_info.push(now_info);
 
 		now_vector = -1;
@@ -187,7 +187,7 @@ Direction Runner::step()
 	// 	return ((Direction) 0);
 
 	if(p.now_vector == -1)
-		
+
 		p.new_branch(current_status);
 
 	paths[UP] = (int) current_status.up;
@@ -205,9 +205,9 @@ Direction Runner::step()
 	if(free > 2)
 	{
 		if(!p.return_mode)
-		{
+		
 			p.new_branch(current_status);
-		}
+		
 		else
 		{
 			p.now_vector = -1;
@@ -223,5 +223,6 @@ Direction Runner::step()
 	
 	result = p.forward(paths);
 	
+	// std::cout << result << std::endl;
 	return (Direction) result;
 }

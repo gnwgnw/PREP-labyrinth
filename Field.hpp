@@ -24,7 +24,7 @@ class Field {
         size_t tic_count = 0;
         bool done = false;
 
-        vector<vector<BlockType>> field;
+        vector<vector<BlockType> > field;
         Runner runner;
 
         Position current_position;

@@ -13,23 +13,10 @@ int main(int argc, char* argv[])
     }
 
     ifstream file;
-    std::ofstream fileOS;
     file.exceptions(ifstream::failbit | ifstream::badbit);
 
     try {
         Field field;
-
-
-        fileOS.open(argv[1], std::ios_base::trunc | std::ios_base::out);
-        fileOS << "7 7" << std::endl <<
-        "1 1 1 1 1 1 1" << std::endl <<
-        "1 2 3 0 0 0 1" << std::endl <<
-        "1 0 0 0 1 1 1" << std::endl <<
-        "1 0 1 0 0 0 1" << std::endl <<
-        "1 0 1 1 1 0 1" << std::endl <<
-        "1 0 0 0 1 1 1" << std::endl <<
-        "1 1 1 1 1 1 1";
-        fileOS.close();
 
         file.open(argv[1]);
         file >> field;

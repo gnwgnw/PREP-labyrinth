@@ -3,6 +3,7 @@
 //
 
 #include "Field.hpp"
+#include "Runner.hpp"
 
 
 std::istream& operator>>(std::istream& is, Field& field)

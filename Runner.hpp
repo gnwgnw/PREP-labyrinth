@@ -23,6 +23,11 @@ class Runner: public RunnerBase {
 
 		Direction lastChoice    = Direction::DOWN;
 		bool isForwardDirection = true;
+
+		int x = 0;
+		int y = 0;
+
+		int oneDirectionStepCount = 0;
 };
 
 

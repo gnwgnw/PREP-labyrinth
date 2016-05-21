@@ -35,7 +35,7 @@ Cell::Cell(const Status& status)
 
 // Public methods
 bool Cell::isDeadlock() const{
-	return upDone && downDone && leftDone && rightDone;
+	return !freeDirectionCount();
 }
 
 Direction Cell::getBackDirection() const{
@@ -83,6 +83,10 @@ Direction Cell::chooseNextDirection() const{
 	if (!leftDone)  return Direction::LEFT;
 
 	return backDirection;
+}
+
+int Cell::freeDirectionCount() const{
+	return int(!upDone) + int(!downDone) + int(!leftDone) + int(!rightDone);
 }
 
 // Other functions

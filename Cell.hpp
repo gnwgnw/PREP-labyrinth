@@ -24,6 +24,8 @@ class Cell{
 		bool getDirectionState(const Direction&) const;
 		void setDirectionState(const Direction&, bool value);
 
+		int freeDirectionCount() const;
+
 		friend std::ostream& operator<<(std::ostream&, const Cell&);
 	private:
 		bool leftDone;

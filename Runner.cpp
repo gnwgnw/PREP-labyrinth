@@ -25,19 +25,29 @@ Direction Runner::step(){
 
 	Cell& c = history.top();
 
+	Direction newDirection = lastChoice;
+
 	if (c.isDeadlock()){
-		lastChoice = c.getBackDirection();
+		newDirection = c.getBackDirection();
 		history.pop();
 		isForwardDirection = false;
 	} else {
-		while (c.getDirectionState(lastChoice)){
-			// lastChoice = c.chooseNextDirection();
-			lastChoice = Direction(rand() % 4);
+		if (oneDirectionStepCount > 600){
+			if (c.freeDirectionCount() > 1){
+				newDirection = c.chooseNextDirection();
+			}
 		}
+
+		while (c.getDirectionState(newDirection)){
+			newDirection = Direction(rand() % 4);
+			oneDirectionStepCount = 0;
+		}
+		// newDirection = c.chooseNextDirection();
 		isForwardDirection = true;
+		oneDirectionStepCount++;
 	}
 
-
+	lastChoice = newDirection;
 	c.setDirectionState(lastChoice, true);
 	// std::cout << c << '\n';
 

@@ -133,9 +133,7 @@ D Runner::step() {
 
         bool flag = false;
 
-        if (is_free(stack.top().direction)) {
-            flag = true;
-        }
+       
 
         if (count > 700000 && count < 700300) {
             
@@ -213,6 +211,9 @@ D Runner::step() {
 
         }
         else {
+             if (is_free(stack.top().direction)) {
+            flag = true;
+        }
 
             if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
                 stack.top().down = true;

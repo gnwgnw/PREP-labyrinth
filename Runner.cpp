@@ -1,3 +1,4 @@
+
 //
 // Created by tsv on 09.05.16.
 //
@@ -59,14 +60,14 @@ bool Runner::if_exit()
 
 void Runner::find_directions()
 {
-    if ((current_status.up != BlockType::WALL) && !arr[old_x + demen][old_y + demen + 1])
+    if ((current_status.down != BlockType::WALL) && !arr[old_x + demen][old_y + demen - 1])
     {
         if (!num_directions)
         {
-            y++;
+            y--;
             old_x = x;
-            old_y = y - 1;
-            next_step = Direction::UP;
+            old_y = y + 1;
+            next_step = Direction::DOWN;
         }
         num_directions++;
     }
@@ -81,14 +82,14 @@ void Runner::find_directions()
         }
         num_directions++;
     }
-    if ((current_status.down != BlockType::WALL) && !arr[old_x + demen][old_y + demen - 1])
+    if ((current_status.up != BlockType::WALL) && !arr[old_x + demen][old_y + demen + 1])
     {
         if (!num_directions)
         {
-            y--;
+            y++;
             old_x = x;
-            old_y = y + 1;
-            next_step = Direction::DOWN;
+            old_y = y - 1;
+            next_step = Direction::UP;
         }
         num_directions++;
     }

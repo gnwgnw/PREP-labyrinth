@@ -7,9 +7,17 @@
 
 #include "RunnerBase.hpp"
 
-class Runner: public RunnerBase {
-    public:
-        Direction step();
+class Runner : public RunnerBase {
+public:
+	Runner() : currDirection(Direction::RIGHT) { }
+
+	Direction step();
+	bool isFreeUp();
+	bool isFreeDown();
+	bool isFreeLeft();
+	bool isFreeRight();
+private:
+	Direction currDirection;
 };
 
 

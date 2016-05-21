@@ -7,6 +7,7 @@ class Runner: public RunnerBase {
     private:
         int f_check;
         int left_dir;
+        int flag_dir;
 
     public:
         Runner();

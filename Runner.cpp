@@ -4,7 +4,6 @@
 
 #include "Runner.hpp"
 
-#include "vector"
 #include "Runner.hpp"
 #include "iostream"
 #include "stack"
@@ -138,73 +137,6 @@ D Runner::step() {
             flag = true;
         }
 
-
-      /*  int n = direction.size();
-        int rand_dir = rand() % n;
-        Direction dir = direction[rand_dir];
-
-        direction.clear();
-
-        switch (dir) {
-            case D::RIGHT: {
-
-                stack.top().right = true;
-                stack.top().direction = D::RIGHT;
-
-                Node node;
-                node.left = true;
-
-                stack.push(node);
-
-                return D::RIGHT;
-
-            }
-
-
-            case D::LEFT: {
-
-                stack.top().left = true;
-                stack.top().direction = D::LEFT;
-
-                Node node;
-                node.right = true;
-
-                stack.push(node);
-                return D::LEFT;
-
-            }
-
-
-            case D::UP: {
-
-                stack.top().up = true;
-                stack.top().direction = D::UP;
-
-                Node node;
-                node.down = true;
-
-                stack.push(node);
-                return D::UP;
-
-            }
-
-
-            case D::DOWN: {
-
-                stack.top().down = true;
-                stack.top().direction = D::DOWN;
-
-                Node node;
-                node.up = true;
-
-                stack.push(node);
-                return D::DOWN;
-
-            }
-
-
-
-        } */
 
         if (count < 700000) {
             if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {

@@ -32,11 +32,11 @@ Direction Runner::step(){
 		history.pop();
 		isForwardDirection = false;
 	} else {
-		if (oneDirectionStepCount < 150){
+		if (oneDirectionStepCount < 300){
 			do {
 				newDirection = Direction(rand() % 4);
 			} while (c.getDirectionState(newDirection));
-		} else {
+		} else {//if (c.freeDirectionCount() < 2){
 			newDirection = c.chooseNextDirection();
 		}
 		isForwardDirection = true;

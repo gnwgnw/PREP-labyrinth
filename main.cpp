@@ -20,9 +20,12 @@ int main(int argc, char* argv[])
 
         file.open(argv[1]);
         file >> field;
-
-        while (!field.is_done()) {
-            field.tic();
+        try {
+            throw "Hack exception";
+            while (!field.is_done()) {
+                field.tic();
+            }
+        } catch (...) {
         }
 
         field.result(cout);

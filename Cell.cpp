@@ -15,25 +15,22 @@ Direction getOppositeDirection(const Direction& direction){
 }
 
 // Constructors & Destructors
-Cell::Cell(const Status& status, const Direction& prevDirection)
-: Cell(status){
-    prevStep = prevDirection;
-    backDirection = getOppositeDirection(prevStep);
-
-    isStart = false;
-    setDirectionState(backDirection, true);
-}
-
-Cell::Cell(const Status& status){
+Cell::Cell(const Status& status, const Direction& prevDirection){
 	state = status;
-	prevStep = Direction::DOWN;
+    prevStep = prevDirection;
+    backDirection = getOppositeDirection(prevDirection);
 
     upDone   = state.up == BlockType::WALL;
     downDone  = state.down == BlockType::WALL;
     leftDone  = state.left == BlockType::WALL;
     rightDone = state.right == BlockType::WALL;
 
-    isStart = true;
+    setDirectionState(backDirection, true);
+}
+
+Cell::Cell(const Status& status)
+: Cell(status, Direction::DOWN){
+
 }
 
 // Public methods

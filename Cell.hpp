@@ -33,8 +33,6 @@ class Cell{
 
 		Status state;
 
-		bool isStart;
-
 		Direction prevStep;
 		Direction backDirection;
 };

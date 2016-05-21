@@ -78,10 +78,10 @@ Direction Cell::chooseNextDirection() const{
 	if (state.right == BlockType::EXIT) return Direction::RIGHT;
 
 	// !!! Direction priority !!!
-	// if (!getDirectionState(prevStep)) return prevStep;
 
 	if (!rightDone) return Direction::RIGHT;
 	if (!downDone)  return Direction::DOWN;
+	if (!getDirectionState(prevStep)) return prevStep;
 	if (!upDone)    return Direction::UP;
 	if (!leftDone)  return Direction::LEFT;
 

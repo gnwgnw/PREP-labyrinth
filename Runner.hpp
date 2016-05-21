@@ -130,7 +130,7 @@ Direction Runner::step()
 			path.push(c);
 			return Direction::LEFT;
 		}
-		if (c.down && !path.size() || c.d && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN)
+		if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN)
 		{
 			c.backStep = Direction::UP;
 			c.down = false;
@@ -235,7 +235,7 @@ Direction Runner::step()
 			if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT)
 			{
 				c.backStep = Direction::RIGHT;
-				c.setLeft(false);
+				c.left = false;
 				path.push(c);
 				return Direction::LEFT;
 			}
@@ -288,7 +288,8 @@ Direction Runner::step()
 				if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT && st.top().backStep != Direction::LEFT)
 				{
 					c.backStep = Direction::RIGHT;
-					c.setLeft(false); path.top().backStep = b.backStep;
+					c.left = false;
+					path.top().backStep = b.backStep;
 					path.push(c);
 					return Direction::LEFT;
 				}
@@ -340,7 +341,7 @@ Direction Runner::step()
 					if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT && st.top().backStep != Direction::LEFT && kost.backStep != Direction::LEFT)
 					{
 						c.backStep = Direction::RIGHT;
-						c.setLeft(false);
+						c.left = false;
 						path.push(c);
 						return Direction::LEFT;
 					}
@@ -403,7 +404,7 @@ Direction Runner::step()
 			if (c.left && !path.size() || c.left && b.backStep != Direction::LEFT)
 			{
 				c.backStep = Direction::RIGHT;
-				c.setLeft(false);
+				c.left = false;
 				path.push(c);
 				return Direction::LEFT;
 			}
@@ -432,7 +433,7 @@ Direction Runner::step()
 		if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT)
 		{
 			c.backStep = Direction::RIGHT;
-			c.setLeft(false);
+			c.left = false;
 			path.push(c);
 			return Direction::LEFT;
 		}

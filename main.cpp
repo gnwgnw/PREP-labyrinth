@@ -8,8 +8,8 @@ using std::ifstream;
 
 int main(int argc, char* argv[])
 {
-   // argc = 2;
-    //argv[1] = "/home/gri/Рабочий стол/тест/test_lab.txt";
+ //   argc = 2;
+  //  argv[1] = "/home/gri/Рабочий стол/тест/test_lab.txt";
     if (argc != 2) {
         return 1;
     }

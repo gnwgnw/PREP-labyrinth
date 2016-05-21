@@ -32,21 +32,21 @@ Direction Runner::step(){
 		history.pop();
 		isForwardDirection = false;
 	} else {
-		if (oneDirectionStepCount > 600){
-			if (c.freeDirectionCount() > 1){
-				newDirection = c.chooseNextDirection();
-			}
+		if (oneDirectionStepCount > 0){
+			do {
+				newDirection = Direction(rand() % 4);
+			} while (c.getDirectionState(newDirection));
+		} else {
+			newDirection = c.chooseNextDirection();
 		}
-
-		while (c.getDirectionState(newDirection)){
-			newDirection = Direction(rand() % 4);
-			oneDirectionStepCount = 0;
-		}
-		// newDirection = c.chooseNextDirection();
 		isForwardDirection = true;
-		oneDirectionStepCount++;
 	}
 
+	if (lastChoice != newDirection){
+		oneDirectionStepCount = 0;
+	} else {
+		oneDirectionStepCount++;
+	}
 	lastChoice = newDirection;
 	c.setDirectionState(lastChoice, true);
 	// std::cout << c << '\n';

@@ -7,7 +7,7 @@
 #include <iostream>
 #include "Runner.hpp"
 
-Runner::Runner() :  x(0), y(0), size(square), demen(0)
+Runner::Runner() :  x(0), y(0), size(square), demen(0), next_step(Direction::UP)
     {
         arr = new bool*[size];
         for(int i = 0; i < size; ++i)
@@ -53,6 +53,43 @@ bool Runner::if_exit()
     {
         arr_del();
         next_step = Direction::RIGHT;
+        return true;
+    }
+    return false;
+}
+
+bool Runner::old_direction()
+{
+    if ((next_step == Direction::UP) && (current_status.up != BlockType::WALL) && !arr[old_x + demen][old_y + demen + 1])
+    {
+        y++;
+        old_x = x;
+        old_y = y - 1;
+        num_directions++;
+        return true;
+    }
+    if ((next_step == Direction::RIGHT) && (current_status.right != BlockType::WALL) && !arr[old_x + demen + 1][old_y + demen])
+    {
+        x++;
+        old_x = x - 1;
+        old_y = y;
+        num_directions++;
+        return true;
+    }
+    if ((next_step == Direction::LEFT) && (current_status.left != BlockType::WALL) && !arr[old_x + demen - 1][old_y + demen])
+    {
+        x--;
+        old_x = x + 1;
+        old_y = y;
+        num_directions++;
+        return true;
+    }
+    if ((next_step == Direction::DOWN) && (current_status.down != BlockType::WALL) && !arr[old_x + demen][old_y + demen - 1])
+    {
+        y--;
+        old_x = x;
+        old_y = y + 1;
+        num_directions++;
         return true;
     }
     return false;
@@ -119,7 +156,10 @@ Direction Runner::step()
     {
         return next_step;
     }
-    find_directions();
+    if (!old_direction())
+    {
+        find_directions();
+    }
     if (num_directions == 0)
     {
         tmp = road.back();

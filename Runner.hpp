@@ -38,6 +38,7 @@ class Runner: public RunnerBase {
         bool if_exit();
         void find_directions();
         void arr_del();
+        bool old_direction();
     public:
         Runner();
         Direction step();

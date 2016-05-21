@@ -37,9 +37,14 @@ public:
 
     Direction step();
 
- //   bool exit();
+    bool free_right = false;
+    bool free_left = false;
+    bool free_down = false;
+    bool free_up = false;
 
-  //  std::vector<Direction >* where();
+ //   bool exit();
+    void clear_current_dir();
+  //  std::vector<Direction > direction;
 
 
 

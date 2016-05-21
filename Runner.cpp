@@ -4,11 +4,12 @@
 
 #include "Runner.hpp"
 
-#include <iostream>
+// #include <iostream>
 using namespace std;
 
 Runner::Runner(){
 	isForwardDirection = true;
+	srand(time(NULL));
 }
 
 Direction Runner::step(){
@@ -24,19 +25,21 @@ Direction Runner::step(){
 
 	Cell& c = history.top();
 
-	// std::cout << "isForward: " << isForwardDirection << '\n';
-	// std::cout << history.size() << "Before: \n" << c << "\n";
-	lastChoice = c.chooseNextDirection();
-
 	if (c.isDeadlock()){
+		lastChoice = c.getBackDirection();
 		history.pop();
 		isForwardDirection = false;
 	} else {
+		while (c.getDirectionState(lastChoice)){
+			// lastChoice = c.chooseNextDirection();
+			lastChoice = Direction(rand() % 4);
+		}
 		isForwardDirection = true;
 	}
+
+
 	c.setDirectionState(lastChoice, true);
-	// std::cin.get();
-	// std::cout << history.size() << "After: \n" << c << "\n\n\n";
+	// std::cout << c << '\n';
 
 	return lastChoice;
 }

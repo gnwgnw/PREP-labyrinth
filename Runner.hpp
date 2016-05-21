@@ -6,6 +6,7 @@
 #define LABYRINTH_RUNNER_HPP
 
 #include <stack>
+#include <time.h>
 
 #include "RunnerBase.hpp"
 #include "Cell.hpp"
@@ -20,8 +21,8 @@ class Runner: public RunnerBase {
 	private:
 		std::stack<Cell> history;
 
-		Direction lastChoice;
-		bool isForwardDirection;
+		Direction lastChoice    = Direction::DOWN;
+		bool isForwardDirection = true;
 };
 
 

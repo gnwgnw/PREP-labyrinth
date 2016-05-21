@@ -138,6 +138,42 @@ D Runner::step() {
         }
 
         if (count > 700000 && count < 700030) {
+            
+            if ((free_left && !flag) || (free_left && flag && stack.top().direction == D::LEFT)) {
+                stack.top().left = true;
+                stack.top().direction = D::LEFT;
+
+                Node node;
+                node.right = true;
+
+                stack.push(node);
+
+                clear_current_dir();
+
+                stack.top().direction = D::LEFT;
+
+
+                return D::LEFT;
+            }
+            
+             if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
+                stack.top().down = true;
+                stack.top().direction = D::DOWN;
+
+                Node node;
+                node.up = true;
+
+                stack.push(node);
+
+                clear_current_dir();
+
+                stack.top().direction = D::DOWN;
+
+
+                return D::DOWN;
+
+            }
+            
             if ((free_up && !flag) || (free_up && flag && stack.top().direction == D::UP)) {
                 stack.top().up = true;
                 stack.top().direction = D::UP;
@@ -171,42 +207,6 @@ D Runner::step() {
 
 
                 return D::RIGHT;
-            }
-
-
-            if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
-                stack.top().down = true;
-                stack.top().direction = D::DOWN;
-
-                Node node;
-                node.up = true;
-
-                stack.push(node);
-
-                clear_current_dir();
-
-                stack.top().direction = D::DOWN;
-
-
-                return D::DOWN;
-
-            }
-
-            if ((free_left && !flag) || (free_left && flag && stack.top().direction == D::LEFT)) {
-                stack.top().left = true;
-                stack.top().direction = D::LEFT;
-
-                Node node;
-                node.right = true;
-
-                stack.push(node);
-
-                clear_current_dir();
-
-                stack.top().direction = D::LEFT;
-
-
-                return D::LEFT;
             }
 
 

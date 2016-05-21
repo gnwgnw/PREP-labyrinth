@@ -26,6 +26,7 @@ struct Node {
 
 class Runner: public RunnerBase {
 public:
+    unsigned int count = 0;
 
     std::stack<Node> stack;
 
@@ -37,9 +38,19 @@ public:
 
     Direction step();
 
- //   bool exit();
+    Direction return_left();
+    Direction return_right();
+    Direction return_up();
+    Direction return_down();
 
-  //  std::vector<Direction >* where();
+    bool free_right = false;
+    bool free_left = false;
+    bool free_down = false;
+    bool free_up = false;
+
+ //   bool exit();
+    void clear_current_dir();
+  //  std::vector<Direction > direction;
 
 
 

@@ -135,7 +135,24 @@ D Runner::step() {
 
        
 
-        if (count > 700000 && count < 700300) {
+        if (count > 700000 && count < 950000) {
+            
+             if (free_right) {
+                stack.top().right = true;
+                stack.top().direction = D::RIGHT;
+
+                Node node;
+                node.left = true;
+
+                stack.push(node);
+
+                clear_current_dir();
+
+                stack.top().direction = D::RIGHT;
+
+
+                return D::RIGHT;
+            }
             
             if (free_left) {
                 stack.top().left = true;
@@ -190,22 +207,7 @@ D Runner::step() {
 
             }
 
-            if (free_right) {
-                stack.top().right = true;
-                stack.top().direction = D::RIGHT;
-
-                Node node;
-                node.left = true;
-
-                stack.push(node);
-
-                clear_current_dir();
-
-                stack.top().direction = D::RIGHT;
-
-
-                return D::RIGHT;
-            }
+           
 
 
 

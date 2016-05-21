@@ -14,6 +14,7 @@ typedef BlockType B;
 typedef Direction D;
 
 
+
 bool Runner::is_free(D d)
 {
     Node *n = &stack.top();
@@ -101,7 +102,7 @@ void Runner::clear_current_dir() {
 
 
 D Runner::step() {
-
+    count++;
     if (stack.empty()) {
         Node node;
         stack.push(node);
@@ -204,59 +205,87 @@ D Runner::step() {
 
 
         } */
-        if ((free_right && !flag) || (free_right && flag && stack.top().direction == D::RIGHT)) {
-            stack.top().right = true;
-            stack.top().direction = D::RIGHT;
 
-            Node node;
-            node.left = true;
+        if (count < 700000) {
+            if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
+                stack.top().down = true;
+                stack.top().direction = D::DOWN;
 
-            stack.push(node);
+                Node node;
+                node.up = true;
 
-            clear_current_dir();
+                stack.push(node);
 
-            stack.top().direction = D::RIGHT;
+                clear_current_dir();
+
+                stack.top().direction = D::DOWN;
 
 
-            return D::RIGHT;
+                return D::DOWN;
+
+            }
+
+            if ((free_right && !flag) || (free_right && flag && stack.top().direction == D::RIGHT)) {
+                stack.top().right = true;
+                stack.top().direction = D::RIGHT;
+
+                Node node;
+                node.left = true;
+
+                stack.push(node);
+
+                clear_current_dir();
+
+                stack.top().direction = D::RIGHT;
+
+
+                return D::RIGHT;
+            }
+
+
+        }
+        else {
+
+
+            if ((free_right && !flag) || (free_right && flag && stack.top().direction == D::RIGHT)) {
+                stack.top().right = true;
+                stack.top().direction = D::RIGHT;
+
+                Node node;
+                node.left = true;
+
+                stack.push(node);
+
+                clear_current_dir();
+
+                stack.top().direction = D::RIGHT;
+
+
+                return D::RIGHT;
+            }
+
+
+            if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
+                stack.top().down = true;
+                stack.top().direction = D::DOWN;
+
+                Node node;
+                node.up = true;
+
+                stack.push(node);
+
+                clear_current_dir();
+
+                stack.top().direction = D::DOWN;
+
+
+                return D::DOWN;
+
+            }
+
         }
 
 
-        if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
-            stack.top().down = true;
-            stack.top().direction = D::DOWN;
-
-            Node node;
-            node.up = true;
-
-            stack.push(node);
-
-            clear_current_dir();
-
-            stack.top().direction = D::DOWN;
-
-
-            return D::DOWN;
-
-        }
-
-
-        if ((free_left && !flag) || (free_left && flag && stack.top().direction == D::LEFT)) {
-            stack.top().left = true;
-            stack.top().direction = D::LEFT;
-
-            Node node;
-            node.right = true;
-
-            stack.push(node);
-
-            clear_current_dir();
-
-            stack.top().direction = D::LEFT;
-
-
-            return D::LEFT;
-        }
 
 
         if ((free_up && !flag) || (free_up && flag && stack.top().direction == D::UP)) {
@@ -278,38 +307,7 @@ D Runner::step() {
         }
 
 
-
-
-
-
-
-
-
-       /* if (is_free(D::RIGHT)) {
-            stack.top().right = true;
-            stack.top().direction = D::RIGHT;
-
-            Node node;
-            node.left = true;
-
-            stack.push(node);
-
-            return D::RIGHT;
-        }
-
-        if (is_free(D::DOWN)) {
-            stack.top().down = true;
-            stack.top().direction = D::DOWN;
-
-            Node node;
-            node.up = true;
-
-            stack.push(node);
-            return D::DOWN;
-
-            }
-
-        if (is_free(D::LEFT)) {
+        if ((free_left && !flag) || (free_left && flag && stack.top().direction == D::LEFT)) {
             stack.top().left = true;
             stack.top().direction = D::LEFT;
 
@@ -317,23 +315,14 @@ D Runner::step() {
             node.right = true;
 
             stack.push(node);
+
+            clear_current_dir();
+
+            stack.top().direction = D::LEFT;
+
+
             return D::LEFT;
-            }
-
-        if (is_free(D::UP)) {
-            stack.top().up = true;
-            stack.top().direction = D::UP;
-
-            Node node;
-            node.down = true;
-
-            stack.push(node);
-            return D::UP;
-
-            }*/
-
-
-
+        }
 
 
         }

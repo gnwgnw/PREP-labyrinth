@@ -26,6 +26,7 @@ struct Node {
 
 class Runner: public RunnerBase {
 public:
+    unsigned int count = 0;
 
     std::stack<Node> stack;
 

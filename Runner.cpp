@@ -7,7 +7,7 @@
 #include <iostream>
 #include "Runner.hpp"
 
-#define change 1400000
+#define change 1700000
 
 Runner::Runner() :  x(0), y(0), size(square), demen(0), next_step(Direction::UP), counter(0)
     {

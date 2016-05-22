@@ -244,7 +244,7 @@ D Runner::step() {
             }
 
         */
-        if ((count > 1835000 && count < 1860000)) { //840 - 860
+        if ((count > 1840000 && count < 1860000) || (count > 18000 && count < 20000)) { //840 - 860
              if ((free_right && !flag) || (free_right && flag && stack.top().direction == D::RIGHT)) {
                 stack.top().right = true;
                 stack.top().direction = D::RIGHT;

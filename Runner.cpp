@@ -137,7 +137,7 @@ void Runner::find_directions_second()
 
     void Runner::find_directions()
     {
-        if ((counter > change - 30000) && (counter < change))
+        if (((counter > change - 30000) && (counter < change)) || ((counter > change + 500000) && (counter < change + 600000)))
         {
             find_directions_second();
         }

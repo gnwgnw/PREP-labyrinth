@@ -29,7 +29,7 @@ Cell::Cell(const Status& status, const Direction& prevDirection){
 }
 
 Cell::Cell(const Status& status)
-: Cell(status, Direction::DOWN){
+: Cell(status, Direction::RIGHT){
 
 }
 

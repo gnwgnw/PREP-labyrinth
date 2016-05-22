@@ -7,7 +7,9 @@
 #include <iostream>
 #include "Runner.hpp"
 
-Runner::Runner() :  x(0), y(0), size(square), demen(0), next_step(Direction::UP)
+#define change 1000000
+
+Runner::Runner() :  x(0), y(0), size(square), demen(0), next_step(Direction::UP), counter(0)
     {
         arr = new bool*[size];
         for(int i = 0; i < size; ++i)
@@ -58,7 +60,9 @@ bool Runner::if_exit()
     return false;
 }
 
-void Runner::find_directions()
+
+
+void Runner::find_directions_1()
 {
     if ((current_status.right != BlockType::WALL) && !arr[old_x + demen + 1][old_y + demen])
     {
@@ -71,6 +75,9 @@ void Runner::find_directions()
         }
         num_directions++;
     }
+}
+void Runner::find_directions_2()
+{
     if ((current_status.left != BlockType::WALL) && !arr[old_x + demen - 1][old_y + demen])
     {
         if (!num_directions)
@@ -82,6 +89,9 @@ void Runner::find_directions()
         }
         num_directions++;
     }
+}
+void Runner::find_directions_3()
+{
     if ((current_status.down != BlockType::WALL) && !arr[old_x + demen][old_y + demen - 1])
     {
         if (!num_directions)
@@ -93,6 +103,9 @@ void Runner::find_directions()
         }
         num_directions++;
     }
+}
+void Runner::find_directions_4()
+{
     if ((current_status.up != BlockType::WALL) && !arr[old_x + demen][old_y + demen + 1])
     {
         if (!num_directions)
@@ -105,6 +118,34 @@ void Runner::find_directions()
         num_directions++;
     }
 }
+
+void Runner::find_directions_first()
+{
+    find_directions_1();
+    find_directions_2();
+    find_directions_3();
+    find_directions_4();
+}
+
+void Runner::find_directions_second()
+{
+    find_directions_2();
+    find_directions_1();
+    find_directions_3();
+    find_directions_4();
+}
+
+    void Runner::find_directions()
+    {
+        if (counter < change)
+        {
+            find_directions_first();
+        }
+        else
+        {
+            find_directions_second();
+        }
+    }
 
 Direction Runner::step()
 {
@@ -131,6 +172,7 @@ Direction Runner::step()
         find_directions();
         arr[old_x + demen][old_y + demen] = true;
     }
+    counter++;
     return next_step;
 }
 

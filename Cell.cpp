@@ -79,8 +79,8 @@ Direction Cell::chooseNextDirection() const{
 
 	if (!upDone)    return Direction::UP;
 	if (!leftDone)  return Direction::LEFT;
-	if (!downDone)  return Direction::DOWN;
 	if (!rightDone) return Direction::RIGHT;
+	if (!downDone)  return Direction::DOWN;
 
 	return backDirection;
 }

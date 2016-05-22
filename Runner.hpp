@@ -29,6 +29,11 @@ class Runner: public RunnerBase {
 
 		int oneWayStepCount = 0;
 
+		int leftCount  = 0;
+		int rightCount = 0;
+		int downCount  = 0;
+		int upCount    = 0;
+
 		Direction chooseDirection(const Cell&) const;
 		void handleNewDirection(const Direction&);
 

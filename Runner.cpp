@@ -32,6 +32,17 @@ Direction Runner::step(){
 	c.setDirectionState(newDirection, true);
 	handleNewDirection(newDirection);
 
+	if (history.size() > 15000){
+		for (auto a: dirs){
+			c.setDirectionState(a, false);
+			std::cout << "Go back " << history.size() << '\n';
+		}
+	}
+
+	if (c.isNearExit()){
+		std::cout << "Minimal step count: " << history.size() + 1 << '\n';
+	}
+
 	return newDirection;
 }
 
@@ -42,10 +53,27 @@ void Runner::handleNewDirection(const Direction& direction){
 		oneWayStepCount = 0;
 	}
 
+	switch(direction){
+		case Direction::UP:
+			upCount++;
+			break;
+		case Direction::DOWN:
+			downCount++;
+			break;
+		case Direction::LEFT:
+			leftCount++;
+			break;
+		case Direction::RIGHT:
+			rightCount++;
+			break;
+	}
+
 	x += (direction == Direction::RIGHT) - (direction == Direction::LEFT);
 	y += (direction == Direction::DOWN)  - (direction == Direction::UP);
 
 	lastChoice = direction;
+
+	stepCount++;
 }
 
 Direction Runner::chooseDirection(const Cell& cell) const{

@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 
         file.open(argv[1]);
         file >> field;
-
+        
         while (!field.is_done()) {
             field.tic();
         }

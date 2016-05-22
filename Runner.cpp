@@ -131,8 +131,8 @@ void Runner::find_directions_second()
 {
     find_directions_2();
     find_directions_1();
-    find_directions_3();
     find_directions_4();
+    find_directions_3();
 }
 
     void Runner::find_directions()

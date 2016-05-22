@@ -12,16 +12,21 @@
 
 class Runner: public RunnerBase {
     public:
-    	// Constructors
-    	Runner();
-
         Direction step();
 
 	private:
 		std::stack<Cell> history;
 
-		Direction lastChoice;
-		bool isForwardDirection;
+		Direction lastChoice    = Direction::DOWN;
+		bool isForwardDirection = true;
+
+		int stepCount = 0;
+
+		int x = 0;
+		int y = 0;
+
+		Direction chooseDirection(const Cell&) const;
+		// void handleNewDirection(const Direction&);
 };
 
 

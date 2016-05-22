@@ -20,7 +20,7 @@ Cell::Cell(const Status& status, const Direction& prevDirection){
     prevStep = prevDirection;
     backDirection = getOppositeDirection(prevDirection);
 
-    upDone   = state.up == BlockType::WALL;
+    upDone    = state.up == BlockType::WALL;
     downDone  = state.down == BlockType::WALL;
     leftDone  = state.left == BlockType::WALL;
     rightDone = state.right == BlockType::WALL;
@@ -28,26 +28,37 @@ Cell::Cell(const Status& status, const Direction& prevDirection){
     setDirectionState(backDirection, true);
 }
 
-Cell::Cell(const Status& status)
-: Cell(status, Direction::DOWN){
-
-}
-
 // Public methods
 bool Cell::isDeadlock() const{
-	return upDone && downDone && leftDone && rightDone;
+	return !isNearExit() && upDone && downDone && leftDone && rightDone;
 }
 
 Direction Cell::getBackDirection() const{
 	return backDirection;
 }
 
+bool Cell::isNearExit() const{
+	return state.up == BlockType::EXIT    ||
+		   state.down == BlockType::EXIT  ||
+		   state.right == BlockType::EXIT ||
+		   state.left == BlockType::EXIT;
+}
+
 bool Cell::getDirectionState(const Direction& direction) const{
-	switch (direction){
-		case Direction::UP    : return upDone;
-		case Direction::DOWN  : return downDone;
-		case Direction::LEFT  : return leftDone;
-		case Direction::RIGHT : return rightDone;
+	if (isNearExit()){
+		switch (direction){
+			case Direction::UP    : return state.up    != BlockType::EXIT;
+			case Direction::DOWN  : return state.down  != BlockType::EXIT;
+			case Direction::LEFT  : return state.left  != BlockType::EXIT;
+			case Direction::RIGHT : return state.right != BlockType::EXIT;
+		}
+	} else {
+		switch (direction){
+			case Direction::UP    : return upDone;
+			case Direction::DOWN  : return downDone;
+			case Direction::LEFT  : return leftDone;
+			case Direction::RIGHT : return rightDone;
+		}
 	}
 }
 
@@ -68,27 +79,13 @@ void Cell::setDirectionState(const Direction& direction, bool value){
 	}
 }
 
-Direction Cell::chooseNextDirection() const{
-	if (state.up    == BlockType::EXIT) return Direction::UP;
-	if (state.down  == BlockType::EXIT) return Direction::DOWN;
-	if (state.left  == BlockType::EXIT) return Direction::LEFT;
-	if (state.right == BlockType::EXIT) return Direction::RIGHT;
-
-	// !!! Direction priority !!!
-
-	if (!getDirectionState(prevStep)) return prevStep;
-	if (!rightDone) return Direction::RIGHT;
-	if (!upDone)    return Direction::UP;
-	if (!downDone)  return Direction::DOWN;
-	if (!leftDone)  return Direction::LEFT;
-
-	return backDirection;
+Direction Cell::getPrevDirection() const{
+	return prevStep;
 }
 
 // Other functions
 std::ostream& operator<<(std::ostream& s, const Cell& c){
 	s << " C  | " << " " << (int)c.state.up << "  |  " << c.upDone << "  | ";
-	s << "Next: " << (int)c.chooseNextDirection() << "  ";
 	s << "\n";
 
 	s << " e  | " << (int)c.state.left << " " << (int)c.state.right << " | " << c.leftDone << " " << c.rightDone << " | ";

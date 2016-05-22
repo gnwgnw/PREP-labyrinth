@@ -18,11 +18,12 @@ class Cell{
 
 		bool isDeadlock() const;
 		Direction getBackDirection() const;
-
-		Direction chooseNextDirection() const;
+		Direction getPrevDirection() const;
 
 		bool getDirectionState(const Direction&) const;
 		void setDirectionState(const Direction&, bool value);
+
+		bool isNearExit() const;
 
 		friend std::ostream& operator<<(std::ostream&, const Cell&);
 	private:

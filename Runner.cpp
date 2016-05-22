@@ -7,26 +7,13 @@
 #include <iostream>
 using namespace std;
 
-Runner::Runner(){
-	isForwardDirection = true;
-}
-
 Direction Runner::step(){
 	if (isForwardDirection) {
-		if (history.size()){
-			Cell currCell = Cell(current_status, lastChoice);
-			history.push(currCell);
-		} else {
-			Cell currCell = Cell(current_status);
-			history.push(currCell);
-		}
+		Cell currCell = Cell(current_status, lastChoice);
+		history.push(currCell);
 	}
 
 	Cell& c = history.top();
-
-	// std::cout << "isForward: " << isForwardDirection << '\n';
-	// std::cout << history.size() << "Before: \n" << c << "\n";
-	lastChoice = c.chooseNextDirection();
 
 	if (c.isDeadlock()){
 		history.pop();
@@ -34,9 +21,24 @@ Direction Runner::step(){
 	} else {
 		isForwardDirection = true;
 	}
+
+	lastChoice = chooseDirection(c);
 	c.setDirectionState(lastChoice, true);
-	// std::cin.get();
-	// std::cout << history.size() << "After: \n" << c << "\n\n\n";
 
 	return lastChoice;
+}
+
+Direction Runner::chooseDirection(const Cell& cell) const{
+	Direction dirs[] = { 
+						Direction::RIGHT,
+						Direction::LEFT,
+						Direction::DOWN, 
+						Direction::UP,
+						};
+
+	for (auto a: dirs){
+		if (!cell.getDirectionState(a)) return a;
+	}
+
+	return cell.getBackDirection();
 }

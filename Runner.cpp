@@ -13,61 +13,49 @@ bool operator != (const Status &s1, const Status &s2) {
 
 Direction Runner::step()
 {
-    Direction prev = _prevDir;
-    Direction result = __find(BlockType::EXIT);
-    _prevDir = prev;
-
-    if (result != Direction::NONE)
-        return result;
-    return __find(BlockType::FREE);
-}
-
-Direction Runner::__find(const BlockType &bt)
-{
-    Direction result;
-
-    if (__countWalls() == 3)
-        _prevDir = Direction::NONE;
-
-    if (current_status.up == bt &&
-        _prevDir != Direction::DOWN) {
-        _prevDir = Direction::UP;
-        result =  Direction::UP;
+    if (current_status.right != BlockType::WALL && _history != Direction::RIGHT) {
+        _history = Direction::LEFT;
+        return Direction::RIGHT;
     }
-    else if (current_status.down  == bt &&
-        _prevDir != Direction::UP) {
-        _prevDir = Direction::DOWN;
-        result = Direction::DOWN;
+    else if (current_status.up == BlockType::WALL && current_status.down == BlockType::WALL) {
+        _history = Direction::RIGHT;
+        return Direction::LEFT;
     }
-    else if (current_status.left  == bt &&
-        _prevDir != Direction::RIGHT) {
-        _prevDir = Direction::LEFT;
-        result = Direction::LEFT;
+    else if (current_status.up == BlockType::WALL && current_status.left == BlockType::WALL) {
+        _history = Direction::UP;
+        return Direction::DOWN;
     }
-    else if (current_status.right == bt &&
-        _prevDir != Direction::LEFT) {
-        _prevDir = Direction::RIGHT;
-        result = Direction::RIGHT;
+    else if (current_status.down == BlockType::WALL && current_status.left == BlockType::WALL) {
+        _history = Direction::DOWN;
+        return Direction::UP;
     }
-    else {
-        _prevDir = Direction::NONE;
-        result   = Direction::NONE;
+    else if ((current_status.up == BlockType::WALL || current_status.down == BlockType::WALL) &&
+              _history != Direction::LEFT){
+        _history = Direction::RIGHT;
+        return Direction::LEFT;
     }
-
-    return result;
-}
-
-size_t Runner::__countWalls() const
-{
-    size_t nWalls = 0;
-    if (current_status.up == BlockType::WALL)
-        nWalls++;
-    if (current_status.down == BlockType::WALL)
-        nWalls++;
-    if (current_status.left == BlockType::WALL)
-        nWalls++;
-    if (current_status.right == BlockType::WALL)
-        nWalls++;
-
-    return nWalls;
+    else if (_history == Direction::UP) {
+        if (current_status.down == BlockType::WALL) {
+            _history = Direction::RIGHT;
+            return Direction::LEFT;
+        }
+        _history = Direction::UP;
+        return Direction::DOWN;
+    }
+    else if (_history == Direction::DOWN) {
+        if (current_status.up == BlockType::WALL) {
+            _history = Direction::RIGHT;
+            return Direction::LEFT;
+        }
+        _history = Direction::DOWN;
+        return Direction::UP;
+    }
+    else if (_history == Direction::LEFT) {
+        if (current_status.down == BlockType::WALL) {
+            _history = Direction::DOWN;
+            return Direction::UP;
+        }
+        _history = Direction::UP;
+        return Direction::DOWN;
+    }
 }

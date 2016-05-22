@@ -8,6 +8,9 @@
 #include <cstdint>
 #include <cstddef>
 
+#include <fstream>
+#include <stack>
+
 #include "RunnerBase.hpp"
 
 class Runner: public RunnerBase {
@@ -15,10 +18,7 @@ class Runner: public RunnerBase {
         Direction step();
 
 private:
-        Direction _prevDir = Direction::NONE;
-
-        Direction __find(const BlockType &bt);
-        size_t    __countWalls() const;
+        Direction _history;
 };
 
 

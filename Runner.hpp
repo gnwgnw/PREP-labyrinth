@@ -18,7 +18,7 @@ struct Used_Directions { //0-не ходили, 1-оттуда пришли, 2-�
 };
 
 class Runner: public RunnerBase {
-        size_t square_number = 0;
+        int square_number = 0;
         vector<Used_Directions> squares_on_field;
     public:
         Direction step();

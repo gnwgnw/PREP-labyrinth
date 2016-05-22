@@ -60,17 +60,6 @@ bool Runner::if_exit()
 
 void Runner::find_directions()
 {
-    if ((current_status.down != BlockType::WALL) && !arr[old_x + demen][old_y + demen - 1])
-    {
-        if (!num_directions)
-        {
-            y--;
-            old_x = x;
-            old_y = y + 1;
-            next_step = Direction::DOWN;
-        }
-        num_directions++;
-    }
     if ((current_status.right != BlockType::WALL) && !arr[old_x + demen + 1][old_y + demen])
     {
         if (!num_directions)
@@ -82,17 +71,6 @@ void Runner::find_directions()
         }
         num_directions++;
     }
-    if ((current_status.up != BlockType::WALL) && !arr[old_x + demen][old_y + demen + 1])
-    {
-        if (!num_directions)
-        {
-            y++;
-            old_x = x;
-            old_y = y - 1;
-            next_step = Direction::UP;
-        }
-        num_directions++;
-    }
     if ((current_status.left != BlockType::WALL) && !arr[old_x + demen - 1][old_y + demen])
     {
         if (!num_directions)
@@ -101,6 +79,28 @@ void Runner::find_directions()
             old_x = x + 1;
             old_y = y;
             next_step = Direction::LEFT;
+        }
+        num_directions++;
+    }
+    if ((current_status.down != BlockType::WALL) && !arr[old_x + demen][old_y + demen - 1])
+    {
+        if (!num_directions)
+        {
+            y--;
+            old_x = x;
+            old_y = y + 1;
+            next_step = Direction::DOWN;
+        }
+        num_directions++;
+    }
+    if ((current_status.up != BlockType::WALL) && !arr[old_x + demen][old_y + demen + 1])
+    {
+        if (!num_directions)
+        {
+            y++;
+            old_x = x;
+            old_y = y - 1;
+            next_step = Direction::UP;
         }
         num_directions++;
     }

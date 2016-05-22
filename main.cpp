@@ -25,7 +25,15 @@ int main(int argc, char* argv[])
             field.tic();
         }
 
-        field.result(cout);
+        std::ofstream fl;
+        fl.open("/dev/null");
+
+        field.result(fl);
+        fl.close();
+
+        cout << "Total steps: " << 1 << '\n';
+
+        //field.result(cout);
     }
     catch (ifstream::failure& e) {
         std::cerr << e.what() << std::endl;

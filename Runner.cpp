@@ -23,7 +23,7 @@ Direction Runner::step(){
 	if (history.size() > 15000){
 		for (auto a: dirs){
 			c.setDirectionState(a, false);
-			std::cout << "Go back " << history.size() << '\n';
+			// std::cout << "Go back " << history.size() << '\n';
 		}
 	}
 	

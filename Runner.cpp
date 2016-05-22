@@ -7,7 +7,7 @@
 #include <iostream>
 #include "Runner.hpp"
 
-#define change 800000
+#define change 200000
 
 Runner::Runner() :  x(0), y(0), size(square), demen(0), next_step(Direction::UP), counter(0)
     {
@@ -137,7 +137,7 @@ void Runner::find_directions_second()
 
     void Runner::find_directions()
     {
-        if (((counter > change - 30000) && (counter < change)) || ((counter > change + 300000) && (counter < change + 350000)))
+        if ((counter > change) && (counter < change + 10000))
         {
             find_directions_second();
         }

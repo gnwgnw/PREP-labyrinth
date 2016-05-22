@@ -332,6 +332,23 @@ D Runner::step() {
 /*            if (is_free(stack.top().direction)) {
                 flag = true;
             }*/
+              if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
+                stack.top().down = true;
+                stack.top().direction = D::DOWN;
+
+                Node node;
+                node.up = true;
+
+                stack.push(node);
+
+                clear_current_dir();
+
+                stack.top().direction = D::DOWN;
+
+
+                return D::DOWN;
+
+            }
                 if ((free_right && !flag) || (free_right && flag && stack.top().direction == D::RIGHT)) {
                 stack.top().right = true;
                 stack.top().direction = D::RIGHT;
@@ -349,25 +366,7 @@ D Runner::step() {
                 return D::RIGHT;
             }
 
-            if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
-                stack.top().down = true;
-                stack.top().direction = D::DOWN;
-
-                Node node;
-                node.up = true;
-
-                stack.push(node);
-
-                clear_current_dir();
-
-                stack.top().direction = D::DOWN;
-
-
-                return D::DOWN;
-
-            }
-
-           
+          
 
 
 

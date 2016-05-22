@@ -95,14 +95,6 @@ Direction Runner::step()
     Point right = map[yIndexForMap][xIndexForMap + 1];
     Point left = map[yIndexForMap][xIndexForMap - 1];
 
-
-
-    if((current_status.down != BlockType::WALL) && (lower.wave - 1 == position.wave))
-    {
-        position = lower;
-        return Direction::DOWN;
-    }
-
     if((current_status.left != BlockType::WALL) && (left.wave - 1 == position.wave))
     {
         position = left;
@@ -119,6 +111,12 @@ Direction Runner::step()
     {
         position = right;
         return Direction::RIGHT;
+    }
+
+    if((current_status.down != BlockType::WALL) && (lower.wave - 1 == position.wave))
+    {
+        position = lower;
+        return Direction::DOWN;
     }
 
     if(current_status.right != BlockType::WALL && right.wave == position.wave - 1)

@@ -20,7 +20,7 @@ Direction Runner::step(){
 	Cell& c = history.top();
 	Direction newDirection;
 
-	if (history.size() > 675000 || oneWayStepCount > 500000){
+	if (history.size() > 662500 || oneWayStepCount > 500000){
 		for (auto a: dirs){
 			c.setDirectionState(a, true);
 			// std::cout << "Go back " << history.size() << '\n';
@@ -78,11 +78,11 @@ void Runner::handleNewDirection(const Direction& direction){
 }
 
 Direction Runner::chooseDirection(const Cell& cell) const{
-	if (x < y){
-		if (!cell.getDirectionState(Direction::DOWN)) return Direction::DOWN;
-	} else if (y < x){
-		if (!cell.getDirectionState(Direction::RIGHT)) return Direction::RIGHT;
-	}
+	// if (x < y){
+	// 	if (!cell.getDirectionState(Direction::DOWN)) return Direction::DOWN;
+	// } else if (y < x){
+	// 	if (!cell.getDirectionState(Direction::RIGHT)) return Direction::RIGHT;
+	// }
 
 	for (auto a: dirs){
 		if (!cell.getDirectionState(a)) return a;

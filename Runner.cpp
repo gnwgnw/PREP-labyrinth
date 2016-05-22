@@ -20,7 +20,7 @@ Direction Runner::step(){
 	Cell& c = history.top();
 	Direction newDirection;
 
-	if (history.size() > 675000 || oneWayStepCount > 1000){
+	if (history.size() > 675000 || oneWayStepCount > 750){
 		for (auto a: dirs){
 			c.setDirectionState(a, true);
 			// std::cout << "Go back " << history.size() << '\n';

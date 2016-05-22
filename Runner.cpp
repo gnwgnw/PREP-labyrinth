@@ -63,9 +63,9 @@ Direction Runner::check_move()
     if(right_dir == 4 && current_status.down != BlockType::WALL)
         return Direction::DOWN;
 
-    right_dir--;
-    if (right_dir == -1)
-        right_dir = 4;
+    right_dir++;
+    if (right_dir == 5)
+        right_dir = 1;
 
     if(right_dir == 1 && current_status.left != BlockType::WALL)
         return Direction::LEFT;
@@ -98,3 +98,4 @@ Direction Runner::check_move()
     }
 
 }
+

@@ -13,7 +13,7 @@ using namespace std;
 bool flag = false;
 int flag1 = 0;
 stack<int> ch;
-Cell kost;
+
 
 class Cell
 {
@@ -40,6 +40,8 @@ public:
 	void setTrue();
 
 };
+
+Cell kost;
 
 class Runner : public RunnerBase {
 public:

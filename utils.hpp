@@ -17,8 +17,7 @@ enum class Direction {
         UP,
         DOWN,
         LEFT,
-        RIGHT,
-        NONE
+        RIGHT
 };
 
 struct Status {

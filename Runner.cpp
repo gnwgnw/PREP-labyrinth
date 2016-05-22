@@ -326,9 +326,9 @@ D Runner::step() {
 
         }
         else {
-            if (is_free(stack.top().direction)) {
-                flag = true;
-            }
+//            if (is_free(stack.top().direction)) {
+//                flag = true;
+//            }
             if (is_free(stack.top().direction)) {
                 flag = true;
             }

@@ -248,7 +248,7 @@ D Runner::step() {
 
 
 
-        if (count < 1600000) {
+        if (count < 1540000) {
             if ((free_right && !flag) || (free_right && flag && stack.top().direction == D::RIGHT)) {
                 stack.top().right = true;
                 stack.top().direction = D::RIGHT;
@@ -332,7 +332,22 @@ D Runner::step() {
 /*            if (is_free(stack.top().direction)) {
                 flag = true;
             }*/
+                if ((free_right && !flag) || (free_right && flag && stack.top().direction == D::RIGHT)) {
+                stack.top().right = true;
+                stack.top().direction = D::RIGHT;
 
+                Node node;
+                node.left = true;
+
+                stack.push(node);
+
+                clear_current_dir();
+
+                stack.top().direction = D::RIGHT;
+
+
+                return D::RIGHT;
+            }
 
             if ((free_down && !flag) || (free_down && flag && stack.top().direction == D::DOWN)) {
                 stack.top().down = true;
@@ -352,22 +367,7 @@ D Runner::step() {
 
             }
 
-            if ((free_right && !flag) || (free_right && flag && stack.top().direction == D::RIGHT)) {
-                stack.top().right = true;
-                stack.top().direction = D::RIGHT;
-
-                Node node;
-                node.left = true;
-
-                stack.push(node);
-
-                clear_current_dir();
-
-                stack.top().direction = D::RIGHT;
-
-
-                return D::RIGHT;
-            }
+           
 
 
 

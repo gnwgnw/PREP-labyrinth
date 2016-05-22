@@ -13,6 +13,8 @@ set(
         Runner.cpp
         Runner.hpp
         utils.hpp
+        Cell.cpp
+        Cell.hpp
 )
 
 add_executable(labyrinth ${SOURCE_FILES})

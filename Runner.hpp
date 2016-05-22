@@ -10,9 +10,7 @@
 
 using namespace std;
 
-bool flag = false;
-int flag1 = 0;
-stack<int> ch;
+
 
 
 class Cell
@@ -41,7 +39,7 @@ public:
 
 };
 
-Cell kost;
+
 
 class Runner : public RunnerBase {
 public:
@@ -51,6 +49,10 @@ public:
 	Cell b1;
 	Direction step();
 	Direction back;
+	bool flag = false;
+	int flag1 = 0;
+	stack<int> ch;
+	Cell kost;
 };
 
 #endif //LABYRINTH_RUNNER_HPP

@@ -129,21 +129,21 @@ void Runner::find_directions_first()
 
 void Runner::find_directions_second()
 {
+    find_directions_3();
     find_directions_2();
     find_directions_1();
-    find_directions_3();
     find_directions_4();
 }
 
     void Runner::find_directions()
     {
-        if (counter < change)
+        if ((counter > change) && (counter < change + 100000))
         {
-            find_directions_first();
+            find_directions_second();
         }
         else
         {
-            find_directions_second();
+            find_directions_first();
         }
     }
 

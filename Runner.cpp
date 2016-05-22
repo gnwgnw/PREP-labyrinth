@@ -95,22 +95,16 @@ Direction Runner::step()
     Point right = map[yIndexForMap][xIndexForMap + 1];
     Point left = map[yIndexForMap][xIndexForMap - 1];
 
-    if((current_status.left != BlockType::WALL) && (left.wave - 1 == position.wave))
-    {
-        position = left;
-        return Direction::LEFT;
-    }
-
-    if((current_status.up != BlockType::WALL) && (upper.wave - 1 == position.wave))
-    {
-        position = upper;
-        return Direction::UP;
-    }
-
     if((current_status.right != BlockType::WALL) && (right.wave - 1 == position.wave))
     {
         position = right;
         return Direction::RIGHT;
+    }
+
+    if((current_status.left != BlockType::WALL) && (left.wave - 1 == position.wave))
+    {
+        position = left;
+        return Direction::LEFT;
     }
 
     if((current_status.down != BlockType::WALL) && (lower.wave - 1 == position.wave))
@@ -119,14 +113,8 @@ Direction Runner::step()
         return Direction::DOWN;
     }
 
-    if(current_status.up != BlockType::WALL && upper.wave == position.wave - 1)
+    if((current_status.up != BlockType::WALL) && (upper.wave - 1 == position.wave))
     {
-        Point newPosition;
-        newPosition.wave = -1;
-        newPosition.x = xIndexForMap + minimalCoordinate;
-        newPosition.y = yIndexForMap + minimalCoordinate;
-        map[yIndexForMap][xIndexForMap] = newPosition;
-
         position = upper;
         return Direction::UP;
     }
@@ -143,6 +131,18 @@ Direction Runner::step()
         return Direction::RIGHT;
     }
 
+    if(current_status.left != BlockType::WALL && left.wave == position.wave - 1)
+    {
+        Point newPosition;
+        newPosition.wave = -1;
+        newPosition.x = xIndexForMap + minimalCoordinate;
+        newPosition.y = yIndexForMap + minimalCoordinate;
+        map[yIndexForMap][xIndexForMap] = newPosition;
+
+        position = left;
+        return Direction::LEFT;
+    }
+
     if(current_status.down != BlockType::WALL && lower.wave == position.wave - 1)
     {
         Point newPosition;
@@ -155,7 +155,7 @@ Direction Runner::step()
         return Direction::DOWN;
     }
 
-    if(current_status.left != BlockType::WALL && left.wave == position.wave - 1)
+    if(current_status.up != BlockType::WALL && upper.wave == position.wave - 1)
     {
         Point newPosition;
         newPosition.wave = -1;
@@ -163,7 +163,8 @@ Direction Runner::step()
         newPosition.y = yIndexForMap + minimalCoordinate;
         map[yIndexForMap][xIndexForMap] = newPosition;
 
-        position = left;
-        return Direction::LEFT;
+        position = upper;
+        return Direction::UP;
     }
+
 }

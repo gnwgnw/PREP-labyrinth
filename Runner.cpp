@@ -29,6 +29,9 @@ Direction Runner::step()
     if (_history.size() == 0)
         _history.push(Direction::NONE);
 
+    if (_fork.empty)
+        goAhead = true;
+
     if (goAhead) {
         Fork f;
 
@@ -53,8 +56,8 @@ Direction Runner::step()
 
         _fork.push(f);
     }
-    else
-        _fork.pop(); //?
+    else if ()
+        _fork.pop();
 
     if (__countWalls() == 3 && _fork.top().base != Direction::NONE)
         goAhead = false;

@@ -76,27 +76,19 @@ Direction Runner::step()
 			break;
 		}
 
-
+		if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT)
+				{
+					c.backStep = Direction::RIGHT;
+					c.left = false;
+					path.push(c);
+					return Direction::LEFT;
+				}
 		if (c.up && !path.size() || c.up && path.top().backStep != Direction::UP && b.backStep != Direction::UP)
 		{
 			c.backStep = Direction::DOWN;
 			c.up = false;
 			path.push(c);
 			return Direction::UP;
-		}
-		if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT)
-		{
-			c.backStep = Direction::RIGHT;
-			c.left = false;
-			path.push(c);
-			return Direction::LEFT;
-		}
-		if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN)
-		{
-			c.backStep = Direction::UP;
-			c.down = false;
-			path.push(c);
-			return Direction::DOWN;
 		}
 		if (c.right && !path.size() || c.right && path.top().backStep != Direction::RIGHT && b.backStep != Direction::RIGHT)
 		{
@@ -105,6 +97,14 @@ Direction Runner::step()
 			path.push(c);
 			return Direction::RIGHT;
 		}
+		if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN)
+		{
+			c.backStep = Direction::UP;
+			c.down = false;
+			path.push(c);
+			return Direction::DOWN;
+		}
+		
 
 	}
 	else {
@@ -128,27 +128,19 @@ Direction Runner::step()
 				break;
 			}
 			path.push(b);
-
+			if (c.left && !path.size() || c.left && b.backStep != Direction::LEFT)
+						{
+							c.backStep = Direction::RIGHT;
+							c.left = false;
+							path.push(c);
+							return Direction::LEFT;
+						}
 			if (c.up && !path.size() || c.up && b.backStep != Direction::UP)
 			{
 				c.backStep = Direction::DOWN;
 				c.up = false;
 				path.push(c);
 				return Direction::UP;
-			}
-			if (c.left && !path.size() || c.left && b.backStep != Direction::LEFT)
-			{
-				c.backStep = Direction::RIGHT;
-				c.left = false;
-				path.push(c);
-				return Direction::LEFT;
-			}
-			if (c.down && !path.size() || c.down && b.backStep != Direction::DOWN)
-			{
-				c.backStep = Direction::UP;
-				c.down = false;
-				path.push(c);
-				return Direction::DOWN;
 			}
 			if (c.right && !path.size() || c.right && b.backStep != Direction::RIGHT)
 			{
@@ -157,6 +149,14 @@ Direction Runner::step()
 				path.push(c);
 				return Direction::RIGHT;
 			}
+			if (c.down && !path.size() || c.down && b.backStep != Direction::DOWN)
+			{
+				c.backStep = Direction::UP;
+				c.down = false;
+				path.push(c);
+				return Direction::DOWN;
+			}
+			
 
 		}
 
@@ -185,27 +185,19 @@ Direction Runner::step()
 			st.push(b);
 			ch.push(1);
 			flag1 += 1;
-
+			if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT)
+						{
+							c.backStep = Direction::RIGHT;
+							c.left = false;
+							path.push(c);
+							return Direction::LEFT;
+						}
 			if (c.up && !path.size() || c.up && path.top().backStep != Direction::UP && b.backStep != Direction::UP && b1.backStep != Direction::UP)
 			{
 				c.backStep = Direction::DOWN;
 				c.up = false;
 				path.push(c);
 				return Direction::UP;
-			}
-			if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT)
-			{
-				c.backStep = Direction::RIGHT;
-				c.left = false;
-				path.push(c);
-				return Direction::LEFT;
-			}
-			if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN && b1.backStep != Direction::DOWN)
-			{
-				c.backStep = Direction::UP;
-				c.down = false;
-				path.push(c);
-				return Direction::DOWN;
 			}
 			if (c.right && !path.size() || c.right && path.top().backStep != Direction::RIGHT && b.backStep != Direction::RIGHT)
 			{
@@ -214,6 +206,14 @@ Direction Runner::step()
 				path.push(c);
 				return Direction::RIGHT;
 			}
+			if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN && b1.backStep != Direction::DOWN)
+			{
+				c.backStep = Direction::UP;
+				c.down = false;
+				path.push(c);
+				return Direction::DOWN;
+			}
+			
 		}
 		else
 		{
@@ -238,28 +238,20 @@ Direction Runner::step()
 				ch.pop();
 				ch.push(k + 1);
 				flag1 += 1;
-
+				if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT && st.top().backStep != Direction::LEFT)
+								{
+									c.backStep = Direction::RIGHT;
+									c.left = false;
+									path.top().backStep = b.backStep;
+									path.push(c);
+									return Direction::LEFT;
+								}
 				if (c.up && !path.size() || c.up && path.top().backStep != Direction::UP && b.backStep != Direction::UP && b1.backStep != Direction::UP && st.top().backStep != Direction::UP)
 				{
 					c.backStep = Direction::DOWN;
 					c.up = false; path.top().backStep = b.backStep;
 					path.push(c);
 					return Direction::UP;
-				}
-				if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT && st.top().backStep != Direction::LEFT)
-				{
-					c.backStep = Direction::RIGHT;
-					c.left = false;
-					path.top().backStep = b.backStep;
-					path.push(c);
-					return Direction::LEFT;
-				}
-				if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN && b1.backStep != Direction::DOWN && st.top().backStep != Direction::DOWN)
-				{
-					c.backStep = Direction::UP;
-					c.down = false; path.top().backStep = b.backStep;
-					path.push(c);
-					return Direction::DOWN;
 				}
 				if (c.right && !path.size() || c.right && path.top().backStep != Direction::RIGHT && b.backStep != Direction::RIGHT && st.top().backStep != Direction::RIGHT)
 				{
@@ -270,6 +262,14 @@ Direction Runner::step()
 
 					return Direction::RIGHT;
 				}
+				if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN && b1.backStep != Direction::DOWN && st.top().backStep != Direction::DOWN)
+				{
+					c.backStep = Direction::UP;
+					c.down = false; path.top().backStep = b.backStep;
+					path.push(c);
+					return Direction::DOWN;
+				}
+				
 			}
 			else
 			{
@@ -291,27 +291,19 @@ Direction Runner::step()
 						b.backStep = Direction::UP;
 						break;
 					}
-
+					if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT && st.top().backStep != Direction::LEFT && kost.backStep != Direction::LEFT)
+										{
+											c.backStep = Direction::RIGHT;
+											c.left = false;
+											path.push(c);
+											return Direction::LEFT;
+										}
 					if (c.up && !path.size() || c.up && path.top().backStep != Direction::UP && b.backStep != Direction::UP && b1.backStep != Direction::UP && st.top().backStep != Direction::UP && kost.backStep != Direction::UP)
 					{
 						c.backStep = Direction::DOWN;
 						c.up = false;
 						path.push(c);
 						return Direction::UP;
-					}
-					if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT && b.backStep != Direction::LEFT && b1.backStep != Direction::LEFT && st.top().backStep != Direction::LEFT && kost.backStep != Direction::LEFT)
-					{
-						c.backStep = Direction::RIGHT;
-						c.left = false;
-						path.push(c);
-						return Direction::LEFT;
-					}
-					if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN && b1.backStep != Direction::DOWN && st.top().backStep != Direction::DOWN && kost.backStep != Direction::DOWN)
-					{
-						c.backStep = Direction::UP;
-						c.down = false;
-						path.push(c);
-						return Direction::DOWN;
 					}
 					if (c.right && !path.size() || c.right && path.top().backStep != Direction::RIGHT && b.backStep != Direction::RIGHT && st.top().backStep != Direction::RIGHT && kost.backStep != Direction::RIGHT)
 					{
@@ -320,6 +312,14 @@ Direction Runner::step()
 						path.push(c);
 						return Direction::RIGHT;
 					}
+					if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN && b.backStep != Direction::DOWN && b1.backStep != Direction::DOWN && st.top().backStep != Direction::DOWN && kost.backStep != Direction::DOWN)
+					{
+						c.backStep = Direction::UP;
+						c.down = false;
+						path.push(c);
+						return Direction::DOWN;
+					}
+					
 				}
 			}
 		}
@@ -348,12 +348,12 @@ Direction Runner::step()
 				break;
 			}
 			path.push(b);
-			if (c.right && !path.size() || c.right && b.backStep != Direction::RIGHT)
+			if (c.left && !path.size() || c.left && b.backStep != Direction::LEFT)
 			{
-				c.backStep = Direction::LEFT;
-				c.right = false;
+				c.backStep = Direction::RIGHT;
+				c.left = false;
 				path.push(c);
-				return Direction::RIGHT;
+				return Direction::LEFT;
 			}
 			if (c.up && !path.size() || c.up && b.backStep != Direction::UP)
 			{
@@ -362,13 +362,15 @@ Direction Runner::step()
 				path.push(c);
 				return Direction::UP;
 			}
-			if (c.left && !path.size() || c.left && b.backStep != Direction::LEFT)
+			if (c.right && !path.size() || c.right && b.backStep != Direction::RIGHT)
 			{
-				c.backStep = Direction::RIGHT;
-				c.left = false;
+				c.backStep = Direction::LEFT;
+				c.right = false;
 				path.push(c);
-				return Direction::LEFT;
+				return Direction::RIGHT;
 			}
+			
+			
 			if (c.down && !path.size() || c.down && b.backStep != Direction::DOWN)
 			{
 				c.backStep = Direction::UP;
@@ -384,6 +386,13 @@ Direction Runner::step()
 
 	if (!flag)
 	{
+		if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT)
+		{
+			c.backStep = Direction::RIGHT;
+			c.left = false;
+			path.push(c);
+			return Direction::LEFT;
+		}
 		if (c.up && !path.size() || c.up && path.top().backStep != Direction::UP)
 		{
 			c.backStep = Direction::DOWN;
@@ -391,12 +400,12 @@ Direction Runner::step()
 			path.push(c);
 			return Direction::UP;
 		}
-		if (c.left && !path.size() || c.left && path.top().backStep != Direction::LEFT)
+		if (c.right && !path.size() || c.right && path.top().backStep != Direction::RIGHT)
 		{
-			c.backStep = Direction::RIGHT;
-			c.left = false;
+			c.backStep = Direction::LEFT;
+			c.right = false;
 			path.push(c);
-			return Direction::LEFT;
+			return Direction::RIGHT;
 		}
 		if (c.down && !path.size() || c.down && path.top().backStep != Direction::DOWN)
 		{
@@ -406,13 +415,7 @@ Direction Runner::step()
 			return Direction::DOWN;
 		}
 
-		if (c.right && !path.size() || c.right && path.top().backStep != Direction::RIGHT)
-		{
-			c.backStep = Direction::LEFT;
-			c.right = false;
-			path.push(c);
-			return Direction::RIGHT;
-		}
+		
 	}
 	else
 	{

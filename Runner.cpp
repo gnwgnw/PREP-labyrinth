@@ -58,43 +58,6 @@ bool Runner::if_exit()
     return false;
 }
 
-bool Runner::old_direction()
-{
-    if ((next_step == Direction::UP) && (current_status.up != BlockType::WALL) && !arr[old_x + demen][old_y + demen + 1])
-    {
-        y++;
-        old_x = x;
-        old_y = y - 1;
-        num_directions++;
-        return true;
-    }
-    if ((next_step == Direction::RIGHT) && (current_status.right != BlockType::WALL) && !arr[old_x + demen + 1][old_y + demen])
-    {
-        x++;
-        old_x = x - 1;
-        old_y = y;
-        num_directions++;
-        return true;
-    }
-    if ((next_step == Direction::LEFT) && (current_status.left != BlockType::WALL) && !arr[old_x + demen - 1][old_y + demen])
-    {
-        x--;
-        old_x = x + 1;
-        old_y = y;
-        num_directions++;
-        return true;
-    }
-    if ((next_step == Direction::DOWN) && (current_status.down != BlockType::WALL) && !arr[old_x + demen][old_y + demen - 1])
-    {
-        y--;
-        old_x = x;
-        old_y = y + 1;
-        num_directions++;
-        return true;
-    }
-    return false;
-}
-
 void Runner::find_directions()
 {
     if ((current_status.down != BlockType::WALL) && !arr[old_x + demen][old_y + demen - 1])
@@ -156,10 +119,7 @@ Direction Runner::step()
     {
         return next_step;
     }
-    if (!old_direction())
-    {
-        find_directions();
-    }
+    find_directions();
     if (num_directions == 0)
     {
         tmp = road.back();

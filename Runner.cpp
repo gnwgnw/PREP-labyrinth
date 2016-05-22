@@ -42,10 +42,6 @@ void Runner::handleNewDirection(const Direction& direction){
 		oneWayStepCount = 0;
 	}
 
-	auto i = find(dirs.begin(), dirs.end(), direction);
-	dirs.erase(i);
-	dirs.insert(dirs.begin(), direction);
-
 	x += (direction == Direction::RIGHT) - (direction == Direction::LEFT);
 	y += (direction == Direction::DOWN)  - (direction == Direction::UP);
 
@@ -53,6 +49,12 @@ void Runner::handleNewDirection(const Direction& direction){
 }
 
 Direction Runner::chooseDirection(const Cell& cell) const{
+	if (x > y){
+		if (!cell.getDirectionState(Direction::DOWN)) return Direction::DOWN;
+	} else if (y > x){
+		if (!cell.getDirectionState(Direction::RIGHT)) return Direction::RIGHT;
+	}
+
 	for (auto a: dirs){
 		if (!cell.getDirectionState(a)) return a;
 	}

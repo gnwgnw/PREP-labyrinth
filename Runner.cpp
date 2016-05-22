@@ -20,6 +20,13 @@ Direction Runner::step(){
 	Cell& c = history.top();
 	Direction newDirection;
 
+	if (history.size() > 15000){
+		for (auto a: dirs){
+			c.setDirectionState(a, false);
+			std::cout << "Go back " << history.size() << '\n';
+		}
+	}
+	
 	if (c.isDeadlock()){
 		newDirection = c.getBackDirection();
 		history.pop();
@@ -32,12 +39,6 @@ Direction Runner::step(){
 	c.setDirectionState(newDirection, true);
 	handleNewDirection(newDirection);
 
-	if (history.size() > 15000){
-		for (auto a: dirs){
-			c.setDirectionState(a, false);
-			std::cout << "Go back " << history.size() << '\n';
-		}
-	}
 
 	if (c.isNearExit()){
 		std::cout << "Minimal step count: " << history.size() + 1 << '\n';

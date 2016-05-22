@@ -44,7 +44,7 @@ void Runner::handleNewDirection(const Direction& direction){
 
 	auto i = find(dirs.begin(), dirs.end(), direction);
 	dirs.erase(i);
-	dirs.insert(dirs.begin(), direction);
+	dirs.insert(dirs.end(), direction);
 
 	x += (direction == Direction::RIGHT) - (direction == Direction::LEFT);
 	y += (direction == Direction::DOWN)  - (direction == Direction::UP);

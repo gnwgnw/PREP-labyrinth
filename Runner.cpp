@@ -124,9 +124,9 @@ Direction Runner::check_move()
         return Direction::UP;
 
 
-    left_dir++;
-    if (left_dir == 5)
-        left_dir = 1;
+    left_dir--;
+    if (left_dir == 0)
+        left_dir = 4;
 
     if(left_dir == 1 && current_status.right != BlockType::WALL)
         return Direction::RIGHT;

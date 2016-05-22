@@ -49,9 +49,9 @@ void Runner::handleNewDirection(const Direction& direction){
 }
 
 Direction Runner::chooseDirection(const Cell& cell) const{
-	if (x > y){
+	if (x < y){
 		if (!cell.getDirectionState(Direction::DOWN)) return Direction::DOWN;
-	} else if (y > x){
+	} else if (y < x){
 		if (!cell.getDirectionState(Direction::RIGHT)) return Direction::RIGHT;
 	}
 

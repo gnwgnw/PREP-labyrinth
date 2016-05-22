@@ -6,6 +6,8 @@
 #define LABYRINTH_RUNNER_HPP
 
 #include <stack>
+#include <list>
+#include <algorithm>
 
 #include "RunnerBase.hpp"
 #include "Cell.hpp"
@@ -25,8 +27,17 @@ class Runner: public RunnerBase {
 		int x = 0;
 		int y = 0;
 
+		int oneWayStepCount = 0;
+
 		Direction chooseDirection(const Cell&) const;
-		// void handleNewDirection(const Direction&);
+		void handleNewDirection(const Direction&);
+
+		std::list<Direction> dirs{
+						Direction::RIGHT,
+						Direction::LEFT,
+						Direction::DOWN, 
+						Direction::UP,
+		};
 };
 
 

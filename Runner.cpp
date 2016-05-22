@@ -156,9 +156,7 @@ D Runner::step() {
 
         bool flag = false;
 
-        if (is_free(stack.top().direction)) {
-            flag = true;
-        }
+
 
       /*  std::vector<Direction > *v = where();
 
@@ -328,6 +326,9 @@ D Runner::step() {
 
         }
         else {
+            if (is_free(stack.top().direction)) {
+                flag = true;
+            }
             if (is_free(stack.top().direction)) {
                 flag = true;
             }

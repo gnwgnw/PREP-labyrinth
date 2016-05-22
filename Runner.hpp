@@ -24,6 +24,7 @@ class Runner: public RunnerBase {
     private:
 
         list<Node> road;
+        int counter;
         int x;
         int y;
         int size;
@@ -37,8 +38,13 @@ class Runner: public RunnerBase {
         void add_memory();
         bool if_exit();
         void find_directions();
+        void find_directions_1();
+        void find_directions_2();
+        void find_directions_3();
+        void find_directions_4();
+        void find_directions_first();
+        void find_directions_second();
         void arr_del();
-        bool old_direction();
     public:
         Runner();
         Direction step();

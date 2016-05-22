@@ -119,17 +119,6 @@ Direction Runner::step()
         return Direction::UP;
     }
 
-    if(current_status.up != BlockType::WALL && upper.wave == position.wave - 1)
-    {
-        Point newPosition;
-        newPosition.wave = -1;
-        newPosition.x = xIndexForMap + minimalCoordinate;
-        newPosition.y = yIndexForMap + minimalCoordinate;
-        map[yIndexForMap][xIndexForMap] = newPosition;
-
-        position = upper;
-        return Direction::UP;
-    }
 
 if(current_status.right != BlockType::WALL && right.wave == position.wave - 1)
     {
@@ -165,5 +154,17 @@ if(current_status.down != BlockType::WALL && lower.wave == position.wave - 1)
 
         position = left;
         return Direction::LEFT;
+    }
+
+    if(current_status.up != BlockType::WALL && upper.wave == position.wave - 1)
+    {
+        Point newPosition;
+        newPosition.wave = -1;
+        newPosition.x = xIndexForMap + minimalCoordinate;
+        newPosition.y = yIndexForMap + minimalCoordinate;
+        map[yIndexForMap][xIndexForMap] = newPosition;
+
+        position = upper;
+        return Direction::UP;
     }
 }

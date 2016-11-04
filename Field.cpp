@@ -3,6 +3,7 @@
 //
 
 #include "Field.hpp"
+#include <iostream>
 
 
 std::istream& operator>>(std::istream& is, Field& field)
@@ -44,8 +45,15 @@ std::istream& operator>>(std::istream& is, BlockType& block_type)
     return is;
 }
 
-void Field::tic()
+bool Field::tic()
 {
+    const auto MAX_EXECUTION_TIME_SEC = 10;
+    const auto elapsed_seconds = std::chrono::duration_cast<std::chrono::seconds>(get_time_elapsed_mcs()).count();
+    if (elapsed_seconds > MAX_EXECUTION_TIME_SEC) {
+        std::cerr << "solution got too much time: " << elapsed_seconds << " sec" << std::endl;
+        return false;
+    }
+
     ++tic_count;
 
     Direction direction = runner.step();
@@ -82,6 +90,8 @@ void Field::tic()
             done = true;
         }
     }
+
+    return true;
 }
 
 void Field::set_runner_current_status()
@@ -106,4 +116,15 @@ bool Field::is_done()
 void Field::result(std::ostream& os)
 {
     os << "Total steps: " << tic_count << std::endl;
+    os << "Total time: " << get_time_elapsed_mcs().count() << " mcs" << std::endl;
+}
+
+void Field::start()
+{
+    start_time = std::chrono::steady_clock::now();
+}
+
+std::chrono::microseconds Field::get_time_elapsed_mcs() const
+{
+    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start_time);
 }

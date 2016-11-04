@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <istream>
+#include <chrono>
 
 #include "Runner.hpp"
 #include "utils.hpp"
@@ -26,19 +27,22 @@ class Field {
 
         vector<vector<BlockType>> field;
         Runner runner;
+        std::chrono::steady_clock::time_point start_time;
 
         Position current_position;
 
         void set_runner_current_status();
+        std::chrono::microseconds get_time_elapsed_mcs() const;
 
     public:
 
         friend std::istream& operator>>(std::istream& is, Field& field);
 
-        void tic();
+        bool tic();
         bool is_done();
 
         void result(std::ostream& os);
+        void start();
 };
 
 std::istream& operator>>(std::istream& is, Field& field);

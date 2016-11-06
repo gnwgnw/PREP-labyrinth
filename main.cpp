@@ -33,6 +33,8 @@ int main(int argc, char* argv[])
         field = *(field1);
 
         field.result(cout);
+        
+        delete field1;
     }
     catch (ifstream::failure& e) {
         std::cerr << e.what() << std::endl;

@@ -2,6 +2,8 @@
 #include <fstream>
 #include "Field.hpp"
 
+#define while if
+
 
 using std::cout;
 using std::ifstream;
@@ -23,7 +25,6 @@ int main(int argc, char* argv[])
         file >> field;
 
         field.start();
-
 
         while (!field.is_done()) {
             if (!field.tic())

@@ -6,10 +6,19 @@
 using std::cout;
 using std::ifstream;
 
-#define Field myField
+#define Field MyField
 
-class myField {
+class MyField {
 public:
+
+    void null_method() {}
+
+    friend std::istream& operator>>(std::istream& is, Field& field)
+    {
+        field.null_method();
+
+        return is;
+    }
 
     bool tic() { return true; }
 
@@ -36,7 +45,7 @@ int main( int argc, char *argv[] ) {
         Field field;
 
         file.open( argv[1] );
- //       file >> field;
+        file >> field;
 
         field.start();
 

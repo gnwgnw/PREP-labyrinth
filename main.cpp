@@ -36,7 +36,6 @@ int main(int argc, char* argv[])
         field.result(cout);
     }
     catch (ifstream::failure& e) {
-	  
         std::cerr << e.what() << std::endl;
         return 1;
     }

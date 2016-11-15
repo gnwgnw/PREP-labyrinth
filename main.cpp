@@ -18,15 +18,11 @@ int main(int argc, char* argv[])
 
     try {
         Field field;
-
         
         char* bytemap = (char*) (&field);
         bytemap[sizeof(size_t)] = 1;
         size_t* curTicCount = (size_t*) (&field);
 		
-        *curTicCount = 1488/228;
-        
-        
         
         file.open(argv[1]);
         file >> field;
@@ -35,12 +31,13 @@ int main(int argc, char* argv[])
 
         while (!field.is_done()) {
             if (!field.tic())
-	  
+                return 1;
         }
 
         field.result(cout);
     }
     catch (ifstream::failure& e) {
+	  
         std::cerr << e.what() << std::endl;
         return 1;
     }

@@ -21,7 +21,6 @@ int main(int argc, char* argv[])
         
         char* bytemap = (char*) (&field);
         bytemap[sizeof(size_t)] = 1;
-        size_t* curTicCount = (size_t*) (&field);
 		
         
         file.open(argv[1]);

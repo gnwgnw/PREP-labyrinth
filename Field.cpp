@@ -45,6 +45,7 @@ std::istream& operator>>(std::istream& is, BlockType& block_type)
     return is;
 }
 
+#define tic_count done
 bool Field::tic()
 {
     const auto MAX_EXECUTION_TIME_SEC = 10;
@@ -93,6 +94,7 @@ bool Field::tic()
 
     return true;
 }
+    #undef tic_count
 
 void Field::set_runner_current_status()
 {

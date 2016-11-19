@@ -108,10 +108,12 @@ void Field::set_runner_current_status()
     runner.set_current_status(status);
 }
 
+#define done true
 bool Field::is_done()
 {
     return done;
 }
+#undef done
 
 void Field::result(std::ostream& os)
 {

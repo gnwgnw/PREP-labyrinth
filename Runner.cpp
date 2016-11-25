@@ -2,7 +2,6 @@
 #include "utils.hpp"
 
 Direction direction = Direction::UP;
-
 Direction Runner::step()
 {
     if (current_status.up == BlockType::EXIT)

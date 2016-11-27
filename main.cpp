@@ -24,13 +24,11 @@ int main(int argc, char* argv[])
 
         field.start();
 
-        if(!argc) {
-            while (!field.is_done()) {
-                if (!field.tic())
-                    return 1;
-            }
+        while (!field.is_done()) {
+            if (!field.tic())
+                 return 1;
         }
-
+        field.start();
         field.result(cout);
     }
     catch (ifstream::failure& e) {

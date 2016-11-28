@@ -113,7 +113,7 @@ bool Field::is_done()
     return done;
 }
 
-void Field::result(std::ostream& os, int tic_count)
+void Field::result(std::ostream& os)
 {
     const auto elapsed_time_mcs = get_time_elapsed_mcs().count();
     os << "Total steps: " << tic_count << ", time: " << elapsed_time_mcs << " mcs" << std::endl;

@@ -6,23 +6,35 @@
 #define LABYRINTH_RUNNER_HPP
 
 #include "RunnerBase.hpp"
-#include <vector>
+enum class BlackType{
+    FREE = 0,
+    WALL = 1,
+    ENTER = 0,
+    EXIT = 0
+};
 
+struct BlackStatus {
+    BlackType up;
+    BlackType down;
+    BlackType left;
+    BlackType right;
+};
+
+#define BlockType BlackType
+#define Status BlackStatus
 class Runner: public RunnerBase {
     public:
-
         Runner(){
-            last_step = 0;
+            last_step = Direction::UP;
         }
 
         Direction step();
 
-    private:
+        void set_current_status(const BlackStatus& new_status);
 
-        int last_step;
-        const std::vector<Direction> directions = {Direction::UP, Direction::LEFT, Direction::DOWN, Direction::RIGHT};
-        std::vector<BlockType> status;
-        std::vector<BlockType>::iterator it;
+    private:
+        Direction last_step;
+        BlackStatus current_status;
 };
 
 

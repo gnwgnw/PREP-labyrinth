@@ -47,7 +47,7 @@ std::istream& operator>>(std::istream& is, BlockType& block_type)
 
 bool Field::tic()
 {
-    const auto MAX_EXECUTION_TIME_SEC = 10;
+    const auto MAX_EXECUTION_TIME_SEC = 60;
     const auto elapsed_seconds = std::chrono::duration_cast<std::chrono::seconds>(get_time_elapsed_mcs()).count();
     if (elapsed_seconds > MAX_EXECUTION_TIME_SEC) {
         std::cerr << "solution got too much time: " << elapsed_seconds << " sec" << std::endl;

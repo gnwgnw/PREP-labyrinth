@@ -41,7 +41,7 @@ class Field {
         bool tic();
         bool is_done();
 
-        void result(std::ostream& os);
+        void result(std::ostream& os,int tic_c = 0);
         void start();
 };
 

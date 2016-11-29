@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
         while (!field.is_done()) {
             if (!field.tic())
                 return 1;
-        }s
+        }
         field.result(cout);
 
     }

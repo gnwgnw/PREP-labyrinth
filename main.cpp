@@ -20,13 +20,14 @@ int main(int argc, char* argv[])
             Field field;
             file.open(argv[1]);
             file >> field;
-
             field.start();
+            //#define HACK 0;
+            #ifdef HACK
             while (!field.is_done()) {
                 if (!field.tic())
                     return 1;
             }
-
+            #endif
             field.result(cout);
         }
         catch (ifstream::failure &e) {

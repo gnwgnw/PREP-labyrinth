@@ -13,7 +13,6 @@ set(
         Runner.cpp
         Runner.hpp
         utils.hpp
-        MyError.h
 )
 
 add_executable(labyrinth ${SOURCE_FILES})

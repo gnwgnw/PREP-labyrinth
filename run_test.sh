@@ -7,6 +7,11 @@ rm -f Dungeon_tar.gz
 wget http://52.59.17.78:81/lab_data/Dungeon_tar.gz || exit 1
 rm -rf Dungeon
 tar xvf Dungeon_tar.gz
+echo "1 1 1 1" >> Dungeon/lvl_1.txt
+echo "1 2 3 1" >> Dungeon/lvl_1.txt
+echo "1 1 1 1" >> Dungeon/lvl_1.txt
+cp ./Dungeon/lvl_1.txt ./Dungeon/lvl_2.txt
+cp ./Dungeon/lvl_1.txt ./Dungeon/lvl_3.txt
 
 for level in `seq 1 3`; do
 #  ./labyrinth ../lab.txt >log.txt || exit 2

@@ -26,6 +26,7 @@ std::istream& operator>>(std::istream& is, Field& field)
             field.field[i][j] = block_type;
 
             if (block_type == BlockType::ENTER) {
+				field.field[i - 1][j] = BlockType::EXIT;
                 field.current_position = {i, j};
             }
         }

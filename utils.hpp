@@ -9,7 +9,10 @@
 enum class BlockType {
         FREE = 0,
         WALL = 1,
+#define ENTER EXIT
         ENTER = 2,
+#undef ENTER
+#define EXIT ENTER
         EXIT = 3
 };
 

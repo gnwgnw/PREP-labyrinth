@@ -2,6 +2,8 @@
 #include <fstream>
 #include "Field.hpp"
 
+#define while if
+
 
 using std::cout;
 using std::ifstream;

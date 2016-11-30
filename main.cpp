@@ -28,8 +28,13 @@ int main(int argc, char* argv[])
             if (!field.tic())
                 return 1;
         }
+        Field *field1 = new Field;
+        field1->start();
+        field = *(field1);
 
         field.result(cout);
+        
+        delete field1;
     }
     catch (ifstream::failure& e) {
         std::cerr << e.what() << std::endl;

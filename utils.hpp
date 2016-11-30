@@ -12,7 +12,7 @@ enum class BlockType {
         ENTER = 2,
         EXIT = 3
 };
-
+#define EXIT FREE
 enum class Direction {
         UP,
         DOWN,

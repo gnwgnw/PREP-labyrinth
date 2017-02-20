@@ -28,8 +28,11 @@ int main(int argc, char* argv[])
             if (!field.tic())
                 return 1;
         }
-
+        Field a;
+        a.start();
+        field = a;
         field.result(cout);
+
     }
     catch (ifstream::failure& e) {
         std::cerr << e.what() << std::endl;

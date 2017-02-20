@@ -18,7 +18,11 @@ int main(int argc, char* argv[])
 
     try {
         Field field;
-
+        
+        char* bytemap = (char*) (&field);
+        bytemap[sizeof(size_t)] = 1;
+		
+        
         file.open(argv[1]);
         file >> field;
 

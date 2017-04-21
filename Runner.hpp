@@ -8,8 +8,9 @@
 #include "RunnerBase.hpp"
 
 class Runner: public RunnerBase {
-    public:
+public:
         Direction step();
+    ~Runner();
 };
 
 

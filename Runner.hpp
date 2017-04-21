@@ -9,7 +9,15 @@
 
 class Runner: public RunnerBase {
     public:
+
+        Runner(){
+            last_step = Direction::UP;
+        }
+
         Direction step();
+
+    private:
+        Direction last_step;
 };
 
 

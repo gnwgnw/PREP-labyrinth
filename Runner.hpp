@@ -10,6 +10,8 @@
 class Runner: public RunnerBase {
     public:
         Direction step();
+    private:
+        Direction course  = Direction::UP;
 };
 
 

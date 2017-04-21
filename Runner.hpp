@@ -5,12 +5,18 @@
 #ifndef LABYRINTH_RUNNER_HPP
 #define LABYRINTH_RUNNER_HPP
 
+#include <vector>
+#include <fstream>
 #include "RunnerBase.hpp"
+#include "iostream"
+
+using namespace std;
 
 class Runner: public RunnerBase {
     public:
-        Direction step();
+	Direction step();
 };
+
 
 
 #endif //LABYRINTH_RUNNER_HPP
